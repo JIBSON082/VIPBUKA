@@ -91,7 +91,7 @@ export default function FoodCarousel() {
         className="food-grid"
       >
         {/* LEFT — Image */}
-    <div style={{ position: "relative", borderRadius: "4px", overflow: "hidden", height: "60vh" }}>
+    <div style={{ position: "relative", borderRadius: "4px", overflow: "hidden", height: "48vh" }}>
           <img
             key={dish.id}
             src={dish.image}
