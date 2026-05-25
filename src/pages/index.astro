@@ -21,6 +21,27 @@ import Contact from '../components/Contact.astro';
 </Layout>
 
 <script>
+  import Lenis from '@studio-freight/lenis';
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // ── Lenis smooth scroll
+  const lenis = new Lenis({
+    duration: 1.4,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smooth: true,
+  });
+
+  // Hook Lenis into GSAP ticker so ScrollTrigger stays in sync
+  gsap.ticker.add((time) => {
+    lenis.raf(time * 1000);
+  });
+
+  gsap.ticker.lagSmoothing(0);
+
+  // ── Scroll reveal for .fade-up elements
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
