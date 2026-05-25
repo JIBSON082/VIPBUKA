@@ -144,8 +144,8 @@ export default function FoodCarousel() {
           position: "relative",
           width: "100%",
           maxWidth: "560px",
-          margin: "0 auto 2.5rem",
-          aspectRatio: "1 / 0.7",
+          margin: "1.5 auto 2.5rem",
+          aspectRatio: "1 / 0.72",
         }}
       >
         {/* Dashed orbit ring */}
