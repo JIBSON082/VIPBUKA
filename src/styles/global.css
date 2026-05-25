@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,600&family=DM+Sans:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -21,7 +21,7 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 body {
@@ -31,7 +31,6 @@ body {
   overflow-x: hidden;
 }
 
-/* ─── SCROLLBAR ─── */
 ::-webkit-scrollbar {
   width: 4px;
 }
@@ -43,15 +42,13 @@ body {
   border-radius: 2px;
 }
 
-/* ─── SELECTION ─── */
 ::selection {
   background: var(--orange);
   color: var(--ink);
 }
 
-/* ─── UTILITY ─── */
-.font-fraunces {
-  font-family: 'Fraunces', serif;
+.font-playfair {
+  font-family: 'Playfair Display', serif;
 }
 
 .text-green { color: var(--green); }
@@ -59,7 +56,6 @@ body {
 .bg-dark { background: var(--dark-bg); }
 .bg-card { background: var(--dark-card); }
 
-/* ─── SECTION LABEL ─── */
 .section-label {
   font-family: 'DM Sans', sans-serif;
   font-size: 0.65rem;
@@ -69,7 +65,6 @@ body {
   margin-bottom: 1rem;
 }
 
-/* ─── BUTTONS ─── */
 .btn-primary {
   display: inline-flex;
   align-items: center;
@@ -139,12 +134,10 @@ body {
 }
 
 .btn-orange:hover {
-  background: var(--orange);
   filter: brightness(1.1);
   transform: translateY(-1px);
 }
 
-/* ─── DIVIDER ─── */
 .gold-line {
   width: 48px;
   height: 2px;
@@ -152,7 +145,6 @@ body {
   margin: 1.25rem 0;
 }
 
-/* ─── MENU PAGE OVERLAY ─── */
 #menu-overlay {
   display: none;
   position: fixed;
@@ -166,53 +158,11 @@ body {
   display: block;
 }
 
-/* ─── ORDER DROPDOWN ─── */
 .order-dropdown {
   position: relative;
   display: inline-block;
 }
 
-.order-options {
-  display: none;
-  position: absolute;
-  bottom: calc(100% + 8px);
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--dark-card);
-  border: 1px solid var(--border);
-  border-radius: 2px;
-  min-width: 220px;
-  overflow: hidden;
-  z-index: 100;
-}
-
-.order-options.open {
-  display: block;
-}
-
-.order-options a {
-  display: block;
-  padding: 0.875rem 1.25rem;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--cream);
-  text-decoration: none;
-  transition: background 0.2s ease;
-  border-bottom: 1px solid var(--border);
-}
-
-.order-options a:last-child {
-  border-bottom: none;
-}
-
-.order-options a:hover {
-  background: rgba(42, 107, 60, 0.2);
-}
-
-/* ─── FADE UP ANIMATION ─── */
 .fade-up {
   opacity: 0;
   transform: translateY(30px);
@@ -223,4 +173,3 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
-
