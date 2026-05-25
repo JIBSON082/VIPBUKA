@@ -1,1 +1,226 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,600&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --green: #2A6B3C;
+  --orange: #E8900A;
+  --cream: #F9F6F1;
+  --ink: #1A1A1A;
+  --dark-bg: #111411;
+  --dark-card: #181f19;
+  --border: rgba(42, 107, 60, 0.2);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--dark-bg);
+  color: var(--cream);
+  overflow-x: hidden;
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--dark-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--green);
+  border-radius: 2px;
+}
+
+/* ─── SELECTION ─── */
+::selection {
+  background: var(--orange);
+  color: var(--ink);
+}
+
+/* ─── UTILITY ─── */
+.font-fraunces {
+  font-family: 'Fraunces', serif;
+}
+
+.text-green { color: var(--green); }
+.text-orange { color: var(--orange); }
+.bg-dark { background: var(--dark-bg); }
+.bg-card { background: var(--dark-card); }
+
+/* ─── SECTION LABEL ─── */
+.section-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 1rem;
+}
+
+/* ─── BUTTONS ─── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--green);
+  color: var(--cream);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.875rem 2rem;
+  border-radius: 2px;
+  transition: background 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  background: var(--dark-card);
+  border: 1px solid var(--green);
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: var(--cream);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.875rem 2rem;
+  border-radius: 2px;
+  border: 1px solid rgba(249, 246, 241, 0.3);
+  transition: border-color 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-outline:hover {
+  border-color: var(--cream);
+  transform: translateY(-1px);
+}
+
+.btn-orange {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--orange);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.875rem 2rem;
+  border-radius: 2px;
+  transition: background 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+}
+
+.btn-orange:hover {
+  background: var(--orange);
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+/* ─── DIVIDER ─── */
+.gold-line {
+  width: 48px;
+  height: 2px;
+  background: var(--orange);
+  margin: 1.25rem 0;
+}
+
+/* ─── MENU PAGE OVERLAY ─── */
+#menu-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: var(--cream);
+  overflow-y: auto;
+}
+
+#menu-overlay.open {
+  display: block;
+}
+
+/* ─── ORDER DROPDOWN ─── */
+.order-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.order-options {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--dark-card);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  min-width: 220px;
+  overflow: hidden;
+  z-index: 100;
+}
+
+.order-options.open {
+  display: block;
+}
+
+.order-options a {
+  display: block;
+  padding: 0.875rem 1.25rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cream);
+  text-decoration: none;
+  transition: background 0.2s ease;
+  border-bottom: 1px solid var(--border);
+}
+
+.order-options a:last-child {
+  border-bottom: none;
+}
+
+.order-options a:hover {
+  background: rgba(42, 107, 60, 0.2);
+}
+
+/* ─── FADE UP ANIMATION ─── */
+.fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 
