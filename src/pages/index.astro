@@ -1,1 +1,38 @@
 
+import Layout from '../layouts/Layout.astro';
+import '../styles/global.css';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import OurStory from '../components/OurStory.astro';
+import Menu from '../components/Menu.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Contact from '../components/Contact.astro';
+
+
+<Layout>
+  <Navbar />
+  <main>
+    <Hero />
+    <OurStory />
+    <Menu />
+    <Testimonials />
+    <Contact />
+  </main>
+</Layout>
+
+<script>
+  // â”€â”€ Scroll reveal for .fade-up elements
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+
+  document.querySelectorAll('.fade-up').forEach((el) => observer.observe(el));
+</script>
