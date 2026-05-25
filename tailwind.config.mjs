@@ -17,7 +17,7 @@ export default {
         ink: '#1A1A1A',
       },
       fontFamily: {
-        fraunces: ['Fraunces', 'serif'],
+        playfair: ['Playfair Display', 'serif'],
         dm: ['DM Sans', 'sans-serif'],
       },
     },
