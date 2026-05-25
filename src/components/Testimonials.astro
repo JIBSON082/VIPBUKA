@@ -1,1 +1,63 @@
+---
+const testimonials = [
+  {
+    quote: "Most places charge a premium just for nice packaging. VIP Buka gives you great portions and real flavor without the price tag to match.",
+    name: "Tunde A.",
+  },
+  {
+    quote: "The jollof is exactly what they promise — smoky, rich, and hits the spot. I will definitely be ordering again.",
+    name: "Amara O.",
+  },
+  {
+    quote: "It is hard to find a place that gets the local flavor right while keeping things clean and professional. They nailed it.",
+    name: "Michael E.",
+  },
+];
+---
 
+<section id="testimonials" class="py-24 px-5" style="background: #181f19;">
+  <div class="max-w-5xl mx-auto">
+
+    <div class="text-center mb-14 fade-up">
+      <div class="section-label">What People Say</div>
+      <h2
+        class="font-fraunces text-cream"
+        style="font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 600;"
+      >
+        Real people. Real meals.<br/>
+        <em style="color: #E8900A; font-style: italic;">Real talk.</em>
+      </h2>
+      <div class="gold-line mx-auto mt-5"></div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {testimonials.map((t, i) => (
+        <div
+          class="fade-up rounded-sm p-8 relative"
+          style={`background: #111411; border: 1px solid rgba(42,107,60,0.15); animation-delay: ${i * 0.15}s;`}
+        >
+          <div
+            class="font-fraunces absolute top-6 right-8"
+            style="font-size: 4rem; line-height: 1; color: rgba(232,144,10,0.2); font-weight: 600;"
+          >
+            "
+          </div>
+
+          <div class="w-8 h-[2px] mb-6" style="background: #E8900A;"></div>
+
+          <p class="font-dm text-cream/60 text-sm leading-relaxed mb-8">
+            "{t.quote}"
+          </p>
+
+          <div class="flex items-center gap-3">
+            <div class="w-6 h-[1px]" style="background: #2A6B3C;"></div>
+            <span class="font-dm text-xs font-semibold tracking-widest uppercase" style="color: #2A6B3C;">
+              {t.name}
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
