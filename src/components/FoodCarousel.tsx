@@ -213,8 +213,8 @@ export default function FoodCarousel() {
               }}
             >
               <div style={{
-                width: isActive ? "clamp(130px, 28vw, 200px)" : "clamp(44px, 9vw, 68px)",
-                height: isActive ? "clamp(130px, 28vw, 200px)" : "clamp(44px, 9vw, 68px)",
+                width: isActive ? "clamp(110px, 22vw, 160px)" : "clamp(40px, 8vw, 58px)",
+                height: isActive ? "clamp(110px, 22vw, 160px)" : "clamp(40px, 8vw, 58px)",
                 borderRadius: "50%",
                 overflow: "hidden",
                 border: isActive
