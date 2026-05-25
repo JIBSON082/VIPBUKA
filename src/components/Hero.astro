@@ -1,1 +1,48 @@
+---
+import FoodCarousel from './FoodCarousel.tsx';
+---
 
+<section id="hero" class="min-h-screen flex flex-col justify-center pt-24 pb-16 px-5 relative overflow-hidden">
+
+  <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse at 70% 50%, rgba(42,107,60,0.06) 0%, transparent 60%);"></div>
+
+  <div class="max-w-5xl mx-auto w-full relative z-10">
+
+    <div id="hero-brand" class="text-center mb-12">
+      <div class="section-label mb-4">Lagos, Nigeria</div>
+
+      <h1
+        class="font-fraunces text-cream leading-[1.05] mb-4"
+        style="font-size: clamp(2.2rem, 7vw, 5rem); font-weight: 600;"
+      >
+        Taste so spiritual,<br/>
+        <em style="color: #E8900A; font-style: italic;">you might start speaking</em><br/>
+        in flavors.
+      </h1>
+
+      <div class="gold-line mx-auto my-5"></div>
+
+      <p class="font-dm text-cream/60 tracking-[0.2em] uppercase text-xs">
+        Dine in &nbsp;·&nbsp; Take out &nbsp;·&nbsp; Catering services &nbsp;·&nbsp; Delivery
+      </p>
+    </div>
+
+    <FoodCarousel client:load />
+
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const brand = document.getElementById('hero-brand');
+    if (!brand) return;
+
+    gsap.fromTo(
+      brand,
+      { opacity: 0, y: 40 },
+      { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out', delay: 0.3 }
+    );
+  });
+</script>
