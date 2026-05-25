@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 
 const dishes = [
   {
@@ -45,21 +45,71 @@ const dishes = [
   },
 ];
 
+const ORBIT_COUNT = dishes.length;
+
+// Returns position on an ellipse for each satellite dish
+function getOrbitPosition(index: number, total: number, offsetAngle: number) {
+  // Spread satellites evenly, starting from top, going clockwise
+  const angle = ((index / total) * 360 + offsetAngle - 90) * (Math.PI / 180);
+  // Ellipse radii — wider horizontally, shallower vertically
+  const rx = 42; // % of container width
+  const ry = 38; // % of container height
+  const x = 50 + rx * Math.cos(angle);
+  const y = 50 + ry * Math.sin(angle);
+  return { x, y };
+}
+
 export default function FoodCarousel() {
   const [current, setCurrent] = useState(0);
-  const [animating, setAnimating] = useState(false);
-  const [direction, setDirection] = useState<"next" | "prev">("next");
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [orbitAngle, setOrbitAngle] = useState(0);
+  const [targetAngle, setTargetAngle] = useState(0);
   const [orderOpen, setOrderOpen] = useState(false);
+  const animFrameRef = useRef<number | null>(null);
+  const autoRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const currentAngleRef = useRef(0);
 
-  const goTo = useCallback((index: number, dir: "next" | "prev") => {
-    if (animating) return;
-    setAnimating(true);
-    setDirection(dir);
-    setTimeout(() => {
-      setCurrent(index);
-      setAnimating(false);
-    }, 400);
-  }, [animating]);
+  // Animate orbit rotation smoothly
+  const animateToAngle = useCallback((from: number, to: number, onDone: () => void) => {
+    const duration = 600; // ms
+    const start = performance.now();
+
+    function step(now: number) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      // Ease in-out cubic
+      const eased = progress < 0.5
+        ? 4 * progress * progress * progress
+        : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+
+      const angle = from + (to - from) * eased;
+      currentAngleRef.current = angle;
+      setOrbitAngle(angle);
+
+      if (progress < 1) {
+        animFrameRef.current = requestAnimationFrame(step);
+      } else {
+        onDone();
+      }
+    }
+
+    if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
+    animFrameRef.current = requestAnimationFrame(step);
+  }, []);
+
+  const goTo = useCallback((nextIndex: number, dir: "next" | "prev") => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+
+    const step = 360 / ORBIT_COUNT;
+    const delta = dir === "next" ? -step : step;
+    const newAngle = currentAngleRef.current + delta;
+
+    animateToAngle(currentAngleRef.current, newAngle, () => {
+      setCurrent(nextIndex);
+      setIsAnimating(false);
+    });
+  }, [isAnimating, animateToAngle]);
 
   const next = useCallback(() => {
     goTo((current + 1) % dishes.length, "next");
@@ -69,211 +119,267 @@ export default function FoodCarousel() {
     goTo((current - 1 + dishes.length) % dishes.length, "prev");
   }, [current, goTo]);
 
+  // Auto-advance
   useEffect(() => {
-    const timer = setInterval(next, 4500);
-    return () => clearInterval(timer);
+    autoRef.current = setInterval(next, 4500);
+    return () => { if (autoRef.current) clearInterval(autoRef.current); };
   }, [next]);
+
+  // Cleanup
+  useEffect(() => {
+    return () => {
+      if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
+    };
+  }, []);
 
   const dish = dishes[current];
 
   return (
     <div style={{ fontFamily: "'DM Sans', sans-serif" }}>
 
-      {/* ── MAIN BLOCK: Image Left · Details Right ── */}
-      <div style={{
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr",
-        gap: "0",
-        borderRadius: "4px",
-        overflow: "hidden",
-        border: "1px solid rgba(42,107,60,0.15)",
-        marginBottom: "2rem",
-      }}
-      className="carousel-grid"
-      >
-
-        {/* LEFT — Large Image */}
-        <div style={{
+      {/* ── ORBITAL CAROUSEL ── */}
+      <div
+        className="orbital-wrapper"
+        style={{
           position: "relative",
-          aspectRatio: "1 / 1",
-          overflow: "hidden",
-          background: "#181f19",
-        }}>
-          <img
-            key={dish.id}
-            src={dish.image}
-            alt={dish.name}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              objectPosition: "center",
-              opacity: animating ? 0 : 1,
-              transform: animating
-                ? direction === "next" ? "scale(1.04)" : "scale(0.97)"
-                : "scale(1)",
-              transition: "opacity 0.45s ease, transform 0.45s ease",
-              display: "block",
-            }}
-          />
-
-          {/* Dark gradient overlay at bottom */}
-          <div style={{
+          width: "100%",
+          maxWidth: "560px",
+          margin: "0 auto 2.5rem",
+          aspectRatio: "1 / 0.85",
+        }}
+      >
+        {/* Dashed orbit ring */}
+        <svg
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          style={{
             position: "absolute",
             inset: 0,
-            background: "linear-gradient(to top, rgba(17,20,17,0.7) 0%, transparent 50%)",
+            width: "100%",
+            height: "100%",
             pointerEvents: "none",
-          }} />
+            zIndex: 1,
+          }}
+        >
+          <ellipse
+            cx="50"
+            cy="50"
+            rx="42"
+            ry="38"
+            fill="none"
+            stroke="rgba(232,144,10,0.18)"
+            strokeWidth="0.4"
+            strokeDasharray="1.8 1.4"
+          />
+        </svg>
 
-          {/* Arrow buttons at bottom of image */}
-          <div style={{
-            position: "absolute",
-            bottom: "14px",
-            left: "14px",
-            display: "flex",
-            gap: "8px",
-          }}>
+        {/* Satellite dishes (orbiting thumbnails) */}
+        {dishes.map((d, i) => {
+          const pos = getOrbitPosition(i, dishes.length, orbitAngle);
+          const isActive = i === current;
+
+          return (
             <button
-              onClick={prev}
-              aria-label="Previous dish"
+              key={d.id}
+              onClick={() => {
+                if (!isActive && !isAnimating) {
+                  // Figure out shortest direction
+                  const diff = (i - current + dishes.length) % dishes.length;
+                  const dir = diff <= dishes.length / 2 ? "next" : "prev";
+                  // Snap to exact index
+                  const steps = dir === "next" ? diff : dishes.length - diff;
+                  const step = 360 / ORBIT_COUNT;
+                  const delta = dir === "next" ? -step * steps : step * steps;
+                  const newAngle = currentAngleRef.current + delta;
+                  setIsAnimating(true);
+                  animateToAngle(currentAngleRef.current, newAngle, () => {
+                    setCurrent(i);
+                    setIsAnimating(false);
+                  });
+                }
+              }}
+              aria-label={`View ${d.name}`}
               style={{
-                width: "34px",
-                height: "34px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                background: "rgba(17,20,17,0.75)",
-                border: "1px solid rgba(249,246,241,0.15)",
-                borderRadius: "2px",
-                cursor: "pointer",
-                color: "#F9F6F1",
-                transition: "border-color 0.2s ease",
+                position: "absolute",
+                left: `${pos.x}%`,
+                top: `${pos.y}%`,
+                transform: "translate(-50%, -50%)",
+                zIndex: isActive ? 3 : 2,
+                background: "none",
+                border: "none",
+                padding: 0,
+                cursor: isActive ? "default" : "pointer",
+                transition: "none", // position driven by rAF
               }}
             >
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <path d="M8 1L3 6L8 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-              </svg>
+              <div style={{
+                width: isActive ? "clamp(130px, 28vw, 200px)" : "clamp(44px, 9vw, 68px)",
+                height: isActive ? "clamp(130px, 28vw, 200px)" : "clamp(44px, 9vw, 68px)",
+                borderRadius: "50%",
+                overflow: "hidden",
+                border: isActive
+                  ? "3px solid #E8900A"
+                  : "2px solid rgba(232,144,10,0.3)",
+                boxShadow: isActive
+                  ? "0 0 0 6px rgba(232,144,10,0.12), 0 12px 40px rgba(0,0,0,0.5)"
+                  : "0 4px 16px rgba(0,0,0,0.4)",
+                transition: "width 0.5s cubic-bezier(0.34,1.56,0.64,1), height 0.5s cubic-bezier(0.34,1.56,0.64,1), border 0.3s ease, box-shadow 0.3s ease",
+                background: "#181f19",
+              }}>
+                <img
+                  src={d.image}
+                  alt={d.name}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    objectPosition: "center",
+                    filter: isActive ? "none" : "brightness(0.65) saturate(0.8)",
+                    transition: "filter 0.4s ease",
+                  }}
+                />
+              </div>
             </button>
-            <button
-              onClick={next}
-              aria-label="Next dish"
-              style={{
-                width: "34px",
-                height: "34px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                background: "rgba(17,20,17,0.75)",
-                border: "1px solid rgba(249,246,241,0.15)",
-                borderRadius: "2px",
-                cursor: "pointer",
-                color: "#F9F6F1",
-                transition: "border-color 0.2s ease",
-              }}
-            >
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <path d="M4 1L9 6L4 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-              </svg>
-            </button>
-          </div>
+          );
+        })}
 
-          {/* Dot indicators bottom right */}
-          <div style={{
+        {/* Left arrow */}
+        <button
+          onClick={prev}
+          aria-label="Previous dish"
+          className="orbit-arrow orbit-arrow-left"
+          style={{
             position: "absolute",
-            bottom: "18px",
-            right: "14px",
+            left: "-6px",
+            top: "50%",
+            transform: "translateY(-50%)",
+            zIndex: 10,
+            width: "36px",
+            height: "36px",
+            borderRadius: "50%",
+            background: "rgba(17,20,17,0.85)",
+            border: "1px solid rgba(232,144,10,0.3)",
             display: "flex",
-            gap: "5px",
             alignItems: "center",
-          }}>
-            {dishes.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => goTo(i, i > current ? "next" : "prev")}
-                aria-label={`Go to dish ${i + 1}`}
-                style={{
-                  width: i === current ? "18px" : "5px",
-                  height: "5px",
-                  borderRadius: "3px",
-                  background: i === current ? "#E8900A" : "rgba(249,246,241,0.35)",
-                  border: "none",
-                  cursor: "pointer",
-                  transition: "all 0.3s ease",
-                  padding: 0,
-                }}
-              />
-            ))}
-          </div>
+            justifyContent: "center",
+            cursor: "pointer",
+            color: "#F9F6F1",
+            transition: "border-color 0.2s, background 0.2s",
+          }}
+          onMouseEnter={e => {
+            (e.currentTarget as HTMLButtonElement).style.borderColor = "#E8900A";
+            (e.currentTarget as HTMLButtonElement).style.background = "rgba(232,144,10,0.15)";
+          }}
+          onMouseLeave={e => {
+            (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(232,144,10,0.3)";
+            (e.currentTarget as HTMLButtonElement).style.background = "rgba(17,20,17,0.85)";
+          }}
+        >
+          <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
+            <path d="M7 1.5L3 5.5L7 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
+
+        {/* Right arrow */}
+        <button
+          onClick={next}
+          aria-label="Next dish"
+          className="orbit-arrow orbit-arrow-right"
+          style={{
+            position: "absolute",
+            right: "-6px",
+            top: "50%",
+            transform: "translateY(-50%)",
+            zIndex: 10,
+            width: "36px",
+            height: "36px",
+            borderRadius: "50%",
+            background: "rgba(17,20,17,0.85)",
+            border: "1px solid rgba(232,144,10,0.3)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            cursor: "pointer",
+            color: "#F9F6F1",
+            transition: "border-color 0.2s, background 0.2s",
+          }}
+          onMouseEnter={e => {
+            (e.currentTarget as HTMLButtonElement).style.borderColor = "#E8900A";
+            (e.currentTarget as HTMLButtonElement).style.background = "rgba(232,144,10,0.15)";
+          }}
+          onMouseLeave={e => {
+            (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(232,144,10,0.3)";
+            (e.currentTarget as HTMLButtonElement).style.background = "rgba(17,20,17,0.85)";
+          }}
+        >
+          <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
+            <path d="M4 1.5L8 5.5L4 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
+      </div>
+
+      {/* ── DISH DETAILS ── */}
+      <div
+        className="dish-details"
+        style={{
+          textAlign: "center",
+          maxWidth: "480px",
+          margin: "0 auto 2rem",
+          opacity: isAnimating ? 0.4 : 1,
+          transform: isAnimating ? "translateY(6px)" : "translateY(0)",
+          transition: "opacity 0.35s ease, transform 0.35s ease",
+        }}
+      >
+        {/* Counter */}
+        <div style={{
+          fontSize: "0.6rem",
+          letterSpacing: "0.3em",
+          textTransform: "uppercase",
+          color: "#E8900A",
+          marginBottom: "0.75rem",
+        }}>
+          {`${String(current + 1).padStart(2, "0")} / ${String(dishes.length).padStart(2, "0")}`}
         </div>
 
-        {/* RIGHT — Details Panel */}
-        <div style={{
-          background: "#181f19",
-          padding: "2rem 1.75rem",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          borderLeft: "1px solid rgba(42,107,60,0.15)",
-          opacity: animating ? 0 : 1,
-          transform: animating
-            ? direction === "next" ? "translateY(10px)" : "translateY(-10px)"
-            : "translateY(0)",
-          transition: "opacity 0.4s ease, transform 0.4s ease",
+        {/* Name */}
+        <h3 style={{
+          fontFamily: "'Playfair Display', serif",
+          fontSize: "clamp(1.4rem, 4vw, 2rem)",
+          fontWeight: 700,
+          color: "#F9F6F1",
+          lineHeight: 1.2,
+          marginBottom: "0.6rem",
         }}>
+          {dish.name}
+        </h3>
 
-          {/* Counter */}
-          <div style={{
-            fontFamily: "'DM Sans', sans-serif",
-            fontSize: "0.6rem",
-            letterSpacing: "0.3em",
-            textTransform: "uppercase",
-            color: "#E8900A",
-            marginBottom: "1rem",
-          }}>
-            {`${String(current + 1).padStart(2, "0")} / ${String(dishes.length).padStart(2, "0")}`}
-          </div>
+        {/* Divider */}
+        <div style={{
+          width: "28px",
+          height: "2px",
+          background: "#E8900A",
+          margin: "0 auto 0.75rem",
+        }} />
 
-          {/* Name */}
-          <h3 style={{
-            fontFamily: "'Playfair Display', serif",
-            fontSize: "clamp(1.2rem, 2.5vw, 1.6rem)",
-            fontWeight: 700,
-            color: "#F9F6F1",
-            lineHeight: 1.2,
-            marginBottom: "1rem",
-          }}>
-            {dish.name}
-          </h3>
+        {/* Description */}
+        <p style={{
+          fontSize: "0.82rem",
+          color: "rgba(249,246,241,0.55)",
+          lineHeight: 1.75,
+          marginBottom: "1rem",
+          padding: "0 1rem",
+        }}>
+          {dish.description}
+        </p>
 
-          {/* Divider */}
-          <div style={{
-            width: "28px",
-            height: "2px",
-            background: "#E8900A",
-            marginBottom: "1rem",
-          }} />
-
-          {/* Description */}
-          <p style={{
-            fontFamily: "'DM Sans', sans-serif",
-            fontSize: "0.8rem",
-            color: "rgba(249,246,241,0.55)",
-            lineHeight: 1.7,
-            marginBottom: "1.5rem",
-          }}>
-            {dish.description}
-          </p>
-
-          {/* Price */}
-          <div style={{
-            fontFamily: "'Playfair Display', serif",
-            fontSize: "1.4rem",
-            fontWeight: 700,
-            color: "#2A6B3C",
-          }}>
-            {dish.price}
-          </div>
-
+        {/* Price */}
+        <div style={{
+          fontFamily: "'Playfair Display', serif",
+          fontSize: "1.5rem",
+          fontWeight: 700,
+          color: "#2A6B3C",
+        }}>
+          {dish.price}
         </div>
       </div>
 
@@ -413,12 +519,7 @@ export default function FoodCarousel() {
       <style>{`
         @keyframes fadeUp {
           from { opacity: 0; transform: translateX(-50%) translateY(8px); }
-          to { opacity: 1; transform: translateX(-50%) translateY(0); }
-        }
-        @media (max-width: 640px) {
-          .carousel-grid {
-            grid-template-columns: 1fr !important;
-          }
+          to   { opacity: 1; transform: translateX(-50%) translateY(0); }
         }
       `}</style>
     </div>
