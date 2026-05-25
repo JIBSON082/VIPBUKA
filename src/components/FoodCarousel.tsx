@@ -69,9 +69,8 @@ export default function FoodCarousel() {
     goTo((current - 1 + dishes.length) % dishes.length, "prev");
   }, [current, goTo]);
 
-  // Auto-advance every 4 seconds
   useEffect(() => {
-    const timer = setInterval(next, 4000);
+    const timer = setInterval(next, 4500);
     return () => clearInterval(timer);
   }, [next]);
 
@@ -79,19 +78,27 @@ export default function FoodCarousel() {
 
   return (
     <div style={{ fontFamily: "'DM Sans', sans-serif" }}>
-      {/* ── FOOD BLOCK ── */}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "2rem",
-          alignItems: "center",
-          marginBottom: "2.5rem",
-        }}
-        className="food-grid"
+
+      {/* ── MAIN BLOCK: Image Left · Details Right ── */}
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr",
+        gap: "0",
+        borderRadius: "4px",
+        overflow: "hidden",
+        border: "1px solid rgba(42,107,60,0.15)",
+        marginBottom: "2rem",
+      }}
+      className="carousel-grid"
       >
-        {/* LEFT — Image */}
-   <div style={{ position: "relative", borderRadius: "4px", overflow: "hidden", aspectRatio: "4/3" }}>
+
+        {/* LEFT — Large Image */}
+        <div style={{
+          position: "relative",
+          aspectRatio: "1 / 1",
+          overflow: "hidden",
+          background: "#181f19",
+        }}>
           <img
             key={dish.id}
             src={dish.image}
@@ -100,76 +107,84 @@ export default function FoodCarousel() {
               width: "100%",
               height: "100%",
               objectFit: "cover",
+              objectPosition: "center",
               opacity: animating ? 0 : 1,
               transform: animating
-                ? direction === "next" ? "translateX(20px)" : "translateX(-20px)"
-                : "translateX(0)",
-              transition: "opacity 0.4s ease, transform 0.4s ease",
+                ? direction === "next" ? "scale(1.04)" : "scale(0.97)"
+                : "scale(1)",
+              transition: "opacity 0.45s ease, transform 0.45s ease",
               display: "block",
             }}
           />
 
-          {/* Arrows over image */}
-          <button
-            onClick={prev}
-            aria-label="Previous dish"
-            style={{
-              position: "absolute",
-              left: "12px",
-              top: "50%",
-              transform: "translateY(-50%)",
-              background: "rgba(17,20,17,0.7)",
-              border: "1px solid rgba(42,107,60,0.3)",
-              borderRadius: "2px",
-              width: "36px",
-              height: "36px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              cursor: "pointer",
-              color: "#F9F6F1",
-              transition: "background 0.2s ease",
-            }}
-          >
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M9 1L3 7L9 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-            </svg>
-          </button>
-
-          <button
-            onClick={next}
-            aria-label="Next dish"
-            style={{
-              position: "absolute",
-              right: "12px",
-              top: "50%",
-              transform: "translateY(-50%)",
-              background: "rgba(17,20,17,0.7)",
-              border: "1px solid rgba(42,107,60,0.3)",
-              borderRadius: "2px",
-              width: "36px",
-              height: "36px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              cursor: "pointer",
-              color: "#F9F6F1",
-              transition: "background 0.2s ease",
-            }}
-          >
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M5 1L11 7L5 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-            </svg>
-          </button>
-
-          {/* Dot indicators */}
+          {/* Dark gradient overlay at bottom */}
           <div style={{
             position: "absolute",
-            bottom: "12px",
-            left: "50%",
-            transform: "translateX(-50%)",
+            inset: 0,
+            background: "linear-gradient(to top, rgba(17,20,17,0.7) 0%, transparent 50%)",
+            pointerEvents: "none",
+          }} />
+
+          {/* Arrow buttons at bottom of image */}
+          <div style={{
+            position: "absolute",
+            bottom: "14px",
+            left: "14px",
             display: "flex",
-            gap: "6px",
+            gap: "8px",
+          }}>
+            <button
+              onClick={prev}
+              aria-label="Previous dish"
+              style={{
+                width: "34px",
+                height: "34px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                background: "rgba(17,20,17,0.75)",
+                border: "1px solid rgba(249,246,241,0.15)",
+                borderRadius: "2px",
+                cursor: "pointer",
+                color: "#F9F6F1",
+                transition: "border-color 0.2s ease",
+              }}
+            >
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <path d="M8 1L3 6L8 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+              </svg>
+            </button>
+            <button
+              onClick={next}
+              aria-label="Next dish"
+              style={{
+                width: "34px",
+                height: "34px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                background: "rgba(17,20,17,0.75)",
+                border: "1px solid rgba(249,246,241,0.15)",
+                borderRadius: "2px",
+                cursor: "pointer",
+                color: "#F9F6F1",
+                transition: "border-color 0.2s ease",
+              }}
+            >
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <path d="M4 1L9 6L4 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+              </svg>
+            </button>
+          </div>
+
+          {/* Dot indicators bottom right */}
+          <div style={{
+            position: "absolute",
+            bottom: "18px",
+            right: "14px",
+            display: "flex",
+            gap: "5px",
+            alignItems: "center",
           }}>
             {dishes.map((_, i) => (
               <button
@@ -177,10 +192,10 @@ export default function FoodCarousel() {
                 onClick={() => goTo(i, i > current ? "next" : "prev")}
                 aria-label={`Go to dish ${i + 1}`}
                 style={{
-                  width: i === current ? "20px" : "6px",
-                  height: "6px",
+                  width: i === current ? "18px" : "5px",
+                  height: "5px",
                   borderRadius: "3px",
-                  background: i === current ? "#E8900A" : "rgba(249,246,241,0.4)",
+                  background: i === current ? "#E8900A" : "rgba(249,246,241,0.35)",
                   border: "none",
                   cursor: "pointer",
                   transition: "all 0.3s ease",
@@ -191,31 +206,38 @@ export default function FoodCarousel() {
           </div>
         </div>
 
-        {/* RIGHT — Details */}
-        <div
-          style={{
-            opacity: animating ? 0 : 1,
-            transform: animating
-              ? direction === "next" ? "translateY(10px)" : "translateY(-10px)"
-              : "translateY(0)",
-            transition: "opacity 0.4s ease, transform 0.4s ease",
-          }}
-        >
+        {/* RIGHT — Details Panel */}
+        <div style={{
+          background: "#181f19",
+          padding: "2rem 1.75rem",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          borderLeft: "1px solid rgba(42,107,60,0.15)",
+          opacity: animating ? 0 : 1,
+          transform: animating
+            ? direction === "next" ? "translateY(10px)" : "translateY(-10px)"
+            : "translateY(0)",
+          transition: "opacity 0.4s ease, transform 0.4s ease",
+        }}>
+
+          {/* Counter */}
           <div style={{
-            fontSize: "0.65rem",
-            letterSpacing: "0.25em",
+            fontFamily: "'DM Sans', sans-serif",
+            fontSize: "0.6rem",
+            letterSpacing: "0.3em",
             textTransform: "uppercase",
             color: "#E8900A",
-            marginBottom: "0.75rem",
-            fontFamily: "'DM Sans', sans-serif",
+            marginBottom: "1rem",
           }}>
             {`${String(current + 1).padStart(2, "0")} / ${String(dishes.length).padStart(2, "0")}`}
           </div>
 
+          {/* Name */}
           <h3 style={{
             fontFamily: "'Playfair Display', serif",
-            fontSize: "clamp(1.4rem, 3vw, 2rem)",
-            fontWeight: 600,
+            fontSize: "clamp(1.2rem, 2.5vw, 1.6rem)",
+            fontWeight: 700,
             color: "#F9F6F1",
             lineHeight: 1.2,
             marginBottom: "1rem",
@@ -223,31 +245,35 @@ export default function FoodCarousel() {
             {dish.name}
           </h3>
 
+          {/* Divider */}
           <div style={{
-            width: "32px",
+            width: "28px",
             height: "2px",
             background: "#E8900A",
             marginBottom: "1rem",
           }} />
 
+          {/* Description */}
           <p style={{
-            fontSize: "0.85rem",
-            color: "rgba(249,246,241,0.65)",
+            fontFamily: "'DM Sans', sans-serif",
+            fontSize: "0.8rem",
+            color: "rgba(249,246,241,0.55)",
             lineHeight: 1.7,
-            marginBottom: "1.25rem",
-            maxWidth: "280px",
+            marginBottom: "1.5rem",
           }}>
             {dish.description}
           </p>
 
+          {/* Price */}
           <div style={{
             fontFamily: "'Playfair Display', serif",
-            fontSize: "1.5rem",
-            fontWeight: 600,
+            fontSize: "1.4rem",
+            fontWeight: 700,
             color: "#2A6B3C",
           }}>
             {dish.price}
           </div>
+
         </div>
       </div>
 
@@ -276,17 +302,17 @@ export default function FoodCarousel() {
             textTransform: "uppercase",
             padding: "0.875rem 2rem",
             borderRadius: "2px",
-            border: "1px solid rgba(249,246,241,0.3)",
+            border: "1px solid rgba(249,246,241,0.25)",
             textDecoration: "none",
             transition: "border-color 0.3s ease",
           }}
           onMouseEnter={e => (e.currentTarget.style.borderColor = "#F9F6F1")}
-          onMouseLeave={e => (e.currentTarget.style.borderColor = "rgba(249,246,241,0.3)")}
+          onMouseLeave={e => (e.currentTarget.style.borderColor = "rgba(249,246,241,0.25)")}
         >
           Explore Menu
         </a>
 
-        {/* Place an Order — dropdown */}
+        {/* Place an Order */}
         <div style={{ position: "relative" }}>
           <button
             onClick={() => setOrderOpen(!orderOpen)}
@@ -305,7 +331,6 @@ export default function FoodCarousel() {
               borderRadius: "2px",
               border: "none",
               cursor: "pointer",
-              transition: "background 0.3s ease",
             }}
           >
             Place an Order
@@ -323,7 +348,6 @@ export default function FoodCarousel() {
             </svg>
           </button>
 
-          {/* Dropdown */}
           {orderOpen && (
             <div style={{
               position: "absolute",
@@ -392,7 +416,7 @@ export default function FoodCarousel() {
           to { opacity: 1; transform: translateX(-50%) translateY(0); }
         }
         @media (max-width: 640px) {
-          .food-grid {
+          .carousel-grid {
             grid-template-columns: 1fr !important;
           }
         }
@@ -400,4 +424,3 @@ export default function FoodCarousel() {
     </div>
   );
 }
-
