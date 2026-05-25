@@ -3,22 +3,22 @@ const menuImages = [
   {
     name: "Yam & Egg Sauce",
     image: "https://res.cloudinary.com/dx3k7hbnc/image/upload/v1779587822/1000522429_omruzg.png",
-    price: "â‚¦2,500",
+    price: "₦2,500",
   },
   {
     name: "Ogbono Soup & Swallow",
     image: "https://res.cloudinary.com/dx3k7hbnc/image/upload/v1779587849/file_00000000a9e071f48c138a330abce9c7_tt4q3t.png",
-    price: "From â‚¦2,850",
+    price: "From ₦2,850",
   },
   {
     name: "Yam & Fish Sauce",
     image: "https://res.cloudinary.com/dx3k7hbnc/image/upload/v1779587823/ax6kjgrzcxrmt0cyay3vna987r_result_0_c0bwma.png",
-    price: "â‚¦2,500",
+    price: "₦2,500",
   },
   {
     name: "Fried Plantain",
     image: "https://res.cloudinary.com/dx3k7hbnc/image/upload/v1779587824/mk6rmg16x1rmr0cyaxe9nvyhf0_result_0_z4g4o1.jpg",
-    price: "â‚¦500",
+    price: "₦500",
   },
 ];
 ---
@@ -30,8 +30,8 @@ const menuImages = [
     <div class="text-center mb-14 fade-up">
       <div class="section-label">What We Serve</div>
       <h2
-        class="font-fraunces text-cream"
-        style="font-size: clamp(1.75rem, 4vw, 2.75rem); font-weight: 600;"
+        class="font-playfair text-cream"
+        style="font-size: clamp(1.75rem, 4vw, 2.75rem); font-weight: 700;"
       >
         Freshly made.<br/>
         <em style="color: #E8900A; font-style: italic;">Everyday favorites.</em>
@@ -52,27 +52,22 @@ const menuImages = [
             loading="lazy"
             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
-          <!-- Overlay -->
-          <div class="absolute inset-0 transition-opacity duration-300"
-            style="background: linear-gradient(to top, rgba(17,20,17,0.9) 0%, rgba(17,20,17,0.2) 50%, transparent 100%);">
-          </div>
-          <!-- Text -->
+          <div
+            class="absolute inset-0 transition-opacity duration-300"
+            style="background: linear-gradient(to top, rgba(17,20,17,0.9) 0%, rgba(17,20,17,0.2) 50%, transparent 100%);"
+          ></div>
           <div class="absolute bottom-0 left-0 right-0 p-4">
-            <p class="font-fraunces text-cream text-sm font-semibold leading-tight mb-1">{item.name}</p>
-            <p class="font-dm text-orange-brand text-xs font-semibold">{item.price}</p>
+            <p class="font-playfair text-cream text-sm font-semibold leading-tight mb-1">{item.name}</p>
+            <p class="font-dm text-xs font-semibold" style="color: #E8900A;">{item.price}</p>
           </div>
-          <!-- Green top accent -->
-          <div class="absolute top-0 left-0 right-0 h-[2px] bg-green-brand opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div class="absolute top-0 left-0 right-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300" style="background: #2A6B3C;"></div>
         </div>
       ))}
     </div>
 
     <!-- CTA -->
     <div class="text-center fade-up">
-      <button
-        id="open-menu-btn"
-        class="btn-primary"
-      >
+      <button id="open-menu-btn" class="btn-primary">
         Explore Full Menu
       </button>
     </div>
@@ -80,9 +75,10 @@ const menuImages = [
   </div>
 </section>
 
-<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-     FULL MENU OVERLAY PAGE
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+
+<!-- ══════════════════════════════
+     FULL MENU OVERLAY
+══════════════════════════════ -->
 <div id="menu-overlay" role="dialog" aria-modal="true" aria-label="Full Menu">
   <div style="background: #F9F6F1; min-height: 100vh; color: #1A1A1A;">
 
@@ -90,7 +86,7 @@ const menuImages = [
     <div style="position: sticky; top: 0; z-index: 10; background: #F9F6F1; border-bottom: 1px solid rgba(42,107,60,0.15); padding: 1.25rem 1.5rem; display: flex; align-items: center; justify-content: space-between;">
       <div>
         <p style="font-family: 'DM Sans', sans-serif; font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: #E8900A; margin-bottom: 4px;">VIP BUKA</p>
-        <h2 style="font-family: 'Fraunces', serif; font-size: 1.75rem; font-weight: 600; color: #1A1A1A;">
+        <h2 style="font-family: 'Playfair Display', serif; font-size: 1.75rem; font-weight: 700; color: #1A1A1A;">
           Our <em style="color: #2A6B3C; font-style: italic;">Menu</em>
         </h2>
       </div>
@@ -101,13 +97,13 @@ const menuImages = [
       </button>
     </div>
 
-    <!-- Tab Navigation -->
-    <div id="menu-tabs" style="display: flex; gap: 0.5rem; padding: 1rem 1.5rem; overflow-x: auto; border-bottom: 1px solid rgba(42,107,60,0.1);">
+    <!-- Tabs -->
+    <div id="menu-tabs" style="display: flex; gap: 0.5rem; padding: 1rem 1.5rem; overflow-x: auto; border-bottom: 1px solid rgba(42,107,60,0.1); scrollbar-width: none;">
       {["Rice & Pasta", "Yam", "Sides", "Proteins", "Swallows", "Soups"].map((tab, i) => (
         <button
           class="menu-tab"
           data-tab={tab}
-          style={`flex-shrink:0; font-family:'DM Sans',sans-serif; font-size:0.7rem; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; padding:0.5rem 1rem; border-radius:20px; cursor:pointer; transition:all 0.2s ease; border:1px solid rgba(42,107,60,0.3); background:${i === 0 ? '#2A6B3C' : 'transparent'}; color:${i === 0 ? '#F9F6F1' : '#1A1A1A'};`}
+          style={`flex-shrink:0; font-family:'DM Sans',sans-serif; font-size:0.7rem; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; padding:0.5rem 1.1rem; border-radius:20px; cursor:pointer; transition:all 0.2s ease; border:1px solid rgba(42,107,60,0.3); background:${i === 0 ? '#2A6B3C' : 'transparent'}; color:${i === 0 ? '#F9F6F1' : '#1A1A1A'};`}
         >
           {tab}
         </button>
@@ -121,14 +117,14 @@ const menuImages = [
       <div class="menu-section" data-section="Rice & Pasta">
         <div style="font-family:'DM Sans',sans-serif; font-size:0.6rem; letter-spacing:0.3em; text-transform:uppercase; color:#E8900A; margin-bottom:1.5rem;">Per portion</div>
         {[
-          { name: "Jollof Rice", price: "â‚¦300" },
-          { name: "White Rice", price: "â‚¦300" },
-          { name: "Fried Rice", price: "â‚¦300" },
-          { name: "Beef Jollof Pasta", price: "â‚¦3,500" },
+          { name: "Jollof Rice", price: "&#8358;300" },
+          { name: "White Rice", price: "&#8358;300" },
+          { name: "Fried Rice", price: "&#8358;300" },
+          { name: "Beef Jollof Pasta", price: "&#8358;3,500" },
         ].map(item => (
           <div style="display:flex; justify-content:space-between; align-items:center; padding:1rem 0; border-bottom:1px solid rgba(42,107,60,0.1);">
-            <span style="font-family:'Fraunces',serif; font-size:1.05rem; font-weight:400; color:#1A1A1A;">{item.name}</span>
-            <span style="font-family:'DM Sans',sans-serif; font-size:0.85rem; font-weight:600; color:#2A6B3C;">{item.price}</span>
+            <span style="font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:400; color:#1A1A1A;" set:html={item.name}></span>
+            <span style="font-family:'DM Sans',sans-serif; font-size:0.85rem; font-weight:600; color:#2A6B3C;" set:html={item.price}></span>
           </div>
         ))}
       </div>
@@ -136,12 +132,12 @@ const menuImages = [
       <!-- Yam -->
       <div class="menu-section hidden" data-section="Yam">
         {[
-          { name: "Yam & Egg Sauce", price: "â‚¦500" },
-          { name: "Yam & Fish Sauce", price: "â‚¦500" },
+          { name: "Yam & Egg Sauce", price: "&#8358;500" },
+          { name: "Yam & Fish Sauce", price: "&#8358;500" },
         ].map(item => (
           <div style="display:flex; justify-content:space-between; align-items:center; padding:1rem 0; border-bottom:1px solid rgba(42,107,60,0.1);">
-            <span style="font-family:'Fraunces',serif; font-size:1.05rem; font-weight:400; color:#1A1A1A;">{item.name}</span>
-            <span style="font-family:'DM Sans',sans-serif; font-size:0.85rem; font-weight:600; color:#2A6B3C;">{item.price}</span>
+            <span style="font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:400; color:#1A1A1A;" set:html={item.name}></span>
+            <span style="font-family:'DM Sans',sans-serif; font-size:0.85rem; font-weight:600; color:#2A6B3C;" set:html={item.price}></span>
           </div>
         ))}
       </div>
@@ -150,15 +146,15 @@ const menuImages = [
       <div class="menu-section hidden" data-section="Sides">
         <div style="font-family:'DM Sans',sans-serif; font-size:0.6rem; letter-spacing:0.3em; text-transform:uppercase; color:#E8900A; margin-bottom:1.5rem;">Per portion</div>
         {[
-          { name: "Spaghetti", price: "â‚¦200" },
-          { name: "Moi-Moi", price: "â‚¦300 / â‚¦500" },
-          { name: "Plantain", price: "â‚¦200" },
-          { name: "Coleslaw", price: "â‚¦500" },
-          { name: "Beans", price: "â‚¦300" },
+          { name: "Spaghetti", price: "&#8358;200" },
+          { name: "Moi-Moi", price: "&#8358;300 / &#8358;500" },
+          { name: "Plantain", price: "&#8358;200" },
+          { name: "Coleslaw", price: "&#8358;500" },
+          { name: "Beans", price: "&#8358;300" },
         ].map(item => (
           <div style="display:flex; justify-content:space-between; align-items:center; padding:1rem 0; border-bottom:1px solid rgba(42,107,60,0.1);">
-            <span style="font-family:'Fraunces',serif; font-size:1.05rem; font-weight:400; color:#1A1A1A;">{item.name}</span>
-            <span style="font-family:'DM Sans',sans-serif; font-size:0.85rem; font-weight:600; color:#2A6B3C;">{item.price}</span>
+            <span style="font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:400; color:#1A1A1A;" set:html={item.name}></span>
+            <span style="font-family:'DM Sans',sans-serif; font-size:0.85rem; font-weight:600; color:#2A6B3C;" set:html={item.price}></span>
           </div>
         ))}
       </div>
@@ -166,17 +162,17 @@ const menuImages = [
       <!-- Proteins -->
       <div class="menu-section hidden" data-section="Proteins">
         {[
-          { name: "Egg", price: "â‚¦300" },
-          { name: "Meat", price: "â‚¦200" },
-          { name: "Ponmo", price: "â‚¦200" },
-          { name: "Goat Meat", price: "â‚¦500" },
-          { name: "Assorted Meat", price: "â‚¦200" },
-          { name: "Chicken", price: "â‚¦1,500 / â‚¦2,000" },
-          { name: "Fish", price: "â‚¦1,200 / â‚¦1,500" },
+          { name: "Egg", price: "&#8358;300" },
+          { name: "Meat", price: "&#8358;200" },
+          { name: "Ponmo", price: "&#8358;200" },
+          { name: "Goat Meat", price: "&#8358;500" },
+          { name: "Assorted Meat", price: "&#8358;200" },
+          { name: "Chicken", price: "&#8358;1,500 / &#8358;2,000" },
+          { name: "Fish", price: "&#8358;1,200 / &#8358;1,500" },
         ].map(item => (
           <div style="display:flex; justify-content:space-between; align-items:center; padding:1rem 0; border-bottom:1px solid rgba(42,107,60,0.1);">
-            <span style="font-family:'Fraunces',serif; font-size:1.05rem; font-weight:400; color:#1A1A1A;">{item.name}</span>
-            <span style="font-family:'DM Sans',sans-serif; font-size:0.85rem; font-weight:600; color:#2A6B3C;">{item.price}</span>
+            <span style="font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:400; color:#1A1A1A;" set:html={item.name}></span>
+            <span style="font-family:'DM Sans',sans-serif; font-size:0.85rem; font-weight:600; color:#2A6B3C;" set:html={item.price}></span>
           </div>
         ))}
       </div>
@@ -186,8 +182,8 @@ const menuImages = [
         <div style="font-family:'DM Sans',sans-serif; font-size:0.6rem; letter-spacing:0.3em; text-transform:uppercase; color:#E8900A; margin-bottom:1.5rem;">Per wrap</div>
         {["Eba", "Fufu", "Semo", "Amala", "Poundo Yam"].map(name => (
           <div style="display:flex; justify-content:space-between; align-items:center; padding:1rem 0; border-bottom:1px solid rgba(42,107,60,0.1);">
-            <span style="font-family:'Fraunces',serif; font-size:1.05rem; font-weight:400; color:#1A1A1A;">{name}</span>
-            <span style="font-family:'DM Sans',sans-serif; font-size:0.85rem; font-weight:600; color:#2A6B3C;">â‚¦500</span>
+            <span style="font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:400; color:#1A1A1A;">{name}</span>
+            <span style="font-family:'DM Sans',sans-serif; font-size:0.85rem; font-weight:600; color:#2A6B3C;">&#8358;500</span>
           </div>
         ))}
       </div>
@@ -196,21 +192,20 @@ const menuImages = [
       <div class="menu-section hidden" data-section="Soups">
         {["Egusi Soup", "Ogbono Soup", "Vegetable Soup", "Okra Soup", "Ewedu & Gbegiri"].map(name => (
           <div style="display:flex; justify-content:space-between; align-items:center; padding:1rem 0; border-bottom:1px solid rgba(42,107,60,0.1);">
-            <span style="font-family:'Fraunces',serif; font-size:1.05rem; font-weight:400; color:#1A1A1A;">{name}</span>
-            <span style="font-family:'DM Sans',sans-serif; font-size:0.85rem; font-weight:500; color:#888; font-style:italic;">See pricing</span>
+            <span style="font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:400; color:#1A1A1A;">{name}</span>
+            <span style="font-family:'DM Sans',sans-serif; font-size:0.85rem; font-weight:500; color:#888; font-style:italic;">Ask us</span>
           </div>
         ))}
       </div>
 
-      <!-- Divider + Brand -->
+      <!-- Footer Brand + CTAs -->
       <div style="text-align:center; padding:2rem 0; margin-top:1rem;">
         <div style="display:flex; align-items:center; gap:1rem; justify-content:center; margin-bottom:2rem;">
           <div style="flex:1; height:1px; background:rgba(42,107,60,0.2);"></div>
-          <span style="font-family:'Fraunces',serif; font-size:0.9rem; color:#888; font-style:italic;">VIP Buka</span>
+          <span style="font-family:'Playfair Display',serif; font-size:0.9rem; color:#888; font-style:italic;">VIP Buka</span>
           <div style="flex:1; height:1px; background:rgba(42,107,60,0.2);"></div>
         </div>
 
-        <!-- Menu CTAs -->
         <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
           <a
             href="https://store.chowdeck.com/surulere/restaurants/vip-buka-idi-orodx93ut"
@@ -236,7 +231,6 @@ const menuImages = [
 </div>
 
 <script>
-  // Open / Close
   const openBtn = document.getElementById('open-menu-btn');
   const closeBtn = document.getElementById('close-menu-btn');
   const overlay = document.getElementById('menu-overlay');
@@ -251,7 +245,6 @@ const menuImages = [
     document.body.style.overflow = '';
   });
 
-  // Tabs
   const tabs = document.querySelectorAll('.menu-tab');
   const sections = document.querySelectorAll('.menu-section');
 
@@ -259,7 +252,6 @@ const menuImages = [
     tab.addEventListener('click', () => {
       const target = tab.getAttribute('data-tab');
 
-      // Update tab styles
       tabs.forEach(t => {
         (t as HTMLElement).style.background = 'transparent';
         (t as HTMLElement).style.color = '#1A1A1A';
@@ -267,7 +259,6 @@ const menuImages = [
       (tab as HTMLElement).style.background = '#2A6B3C';
       (tab as HTMLElement).style.color = '#F9F6F1';
 
-      // Show section
       sections.forEach(s => {
         if (s.getAttribute('data-section') === target) {
           s.classList.remove('hidden');
@@ -275,9 +266,6 @@ const menuImages = [
           s.classList.add('hidden');
         }
       });
-
-      // Scroll content to top
-      document.getElementById('menu-content')?.scrollTo({ top: 0, behavior: 'smooth' });
     });
   });
 </script>
