@@ -1,1 +1,27 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
 
+const {
+  title = 'VIP Buka — Nigerian Food Done Right',
+  description = 'Dine in. Take out. Catering services. Delivery. Two locations in Lagos — Ajah and LUTH.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dx3k7hbnc/image/upload/v1779611055/Pokecut_1779610926804_fxnypc.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
