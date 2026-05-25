@@ -213,7 +213,7 @@ export default function FoodCarousel() {
           </div>
 
           <h3 style={{
-            fontFamily: "'Fraunces', serif",
+            fontFamily: "'Playfair Display', serif",
             fontSize: "clamp(1.4rem, 3vw, 2rem)",
             fontWeight: 600,
             color: "#F9F6F1",
@@ -241,7 +241,7 @@ export default function FoodCarousel() {
           </p>
 
           <div style={{
-            fontFamily: "'Fraunces', serif",
+            fontFamily: "'Playfair Display', serif",
             fontSize: "1.5rem",
             fontWeight: 600,
             color: "#2A6B3C",
