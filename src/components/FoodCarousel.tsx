@@ -133,9 +133,9 @@ export default function FoodCarousel() {
           position: "relative",
           width: "100%",
           maxWidth: "520px",
-          margin: "2.5rem auto 0",
+          margin: "1.5rem auto 0",
           aspectRatio: "1 / 0.75",
-          top: "-20px",
+          top: "-30px",
         }}
       >
         {/* Dashed orbit ellipse */}
