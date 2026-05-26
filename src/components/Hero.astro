@@ -8,16 +8,36 @@ import FoodCarousel from './FoodCarousel.tsx';
 
   <div class="max-w-5xl mx-auto w-full relative z-10">
 
-    <div id="hero-brand" class="text-center mb-4">
-      <h1
-        class="font-playfair text-cream leading-[1.05] mb-4"
-        style="font-size: clamp(2.2rem, 7vw, 5rem); font-weight: 700;"
+    <!-- Animated cycling words -->
+    <div id="hero-brand" class="text-center mb-8">
+
+      <!-- Static prefix line -->
+      <div
+        class="font-dm uppercase tracking-[0.25em] mb-3"
+        style="font-size: clamp(0.55rem, 1.5vw, 0.7rem); color: rgba(249,246,241,0.35);"
       >
-        Taste so spiritual,<br/>
-        <em style="color: #E8900A; font-style: italic;">you might start speaking</em><br/>
-        in flavors.
-      </h1>
-      <div class="gold-line mx-auto"></div>
+        Now serving
+      </div>
+
+      <!-- The cycling word stage -->
+      <div
+        style="
+          position: relative;
+          height: clamp(3.5rem, 12vw, 6rem);
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        "
+      >
+        <div id="word-stage" style="position: relative; width: 100%; text-align: center;">
+          <!-- Words injected by JS -->
+        </div>
+      </div>
+
+      <!-- Gold line -->
+      <div class="gold-line mx-auto mt-4 mb-3"></div>
+
     </div>
 
     <FoodCarousel client:load />
@@ -26,6 +46,22 @@ import FoodCarousel from './FoodCarousel.tsx';
 </section>
 
 <style>
+  .word-enter {
+    animation: wordIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  .word-exit {
+    animation: wordOut 0.5s cubic-bezier(0.4, 0, 1, 1) forwards;
+  }
+
+  @keyframes wordIn {
+    0%   { opacity: 0; transform: translateY(60%) skewY(4deg); clip-path: inset(0 0 100% 0); }
+    100% { opacity: 1; transform: translateY(0)   skewY(0deg); clip-path: inset(0 0 0% 0); }
+  }
+  @keyframes wordOut {
+    0%   { opacity: 1; transform: translateY(0)    skewY(0deg);  clip-path: inset(0 0 0% 0); }
+    100% { opacity: 0; transform: translateY(-50%) skewY(-3deg); clip-path: inset(100% 0 0 0); }
+  }
+
   @keyframes heroFadeIn {
     from { opacity: 0; transform: translateY(24px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -34,3 +70,58 @@ import FoodCarousel from './FoodCarousel.tsx';
     animation: heroFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
   }
 </style>
+
+<script>
+  const words = [
+    { text: "Dine In",           color: "#F9F6F1" },
+    { text: "Take Out",          color: "#E8900A" },
+    { text: "Catering",          color: "#F9F6F1" },
+    { text: "Delivery",          color: "#2A6B3C" },
+  ];
+
+  const stage = document.getElementById('word-stage');
+  if (stage) {
+    let current = 0;
+    let activeEl: HTMLElement | null = null;
+
+    function showWord(index: number) {
+      // Exit current
+      if (activeEl) {
+        const exiting = activeEl;
+        exiting.classList.remove('word-enter');
+        exiting.classList.add('word-exit');
+        setTimeout(() => exiting.remove(), 500);
+      }
+
+      // Create new
+      const w = words[index];
+      const el = document.createElement('div');
+      el.textContent = w.text;
+      el.classList.add('word-enter');
+      el.style.cssText = `
+        position: absolute;
+        width: 100%;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(2.4rem, 10vw, 5.5rem);
+        font-weight: 700;
+        font-style: italic;
+        color: ${w.color};
+        line-height: 1;
+        letter-spacing: -0.01em;
+        pointer-events: none;
+      `;
+      stage.appendChild(el);
+      activeEl = el;
+    }
+
+    // Start
+    showWord(0);
+    setInterval(() => {
+      current = (current + 1) % words.length;
+      showWord(current);
+    }, 2200);
+  }
+</script>
