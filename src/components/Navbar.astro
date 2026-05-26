@@ -3,7 +3,7 @@ const logoUrl = "https://res.cloudinary.com/dx3k7hbnc/image/upload/v1779611055/P
 ---
 
 <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
-  <div class="max-w-7xl mx-auto px-5 py-4 flex items-center justify-between">
+ <div class="max-w-7xl mx-auto px-5 py-4 flex items-center justify-between relative">
 
     <!-- Logo Left -->
     <a href="/" aria-label="VIP Buka Home">
@@ -14,6 +14,24 @@ const logoUrl = "https://res.cloudinary.com/dx3k7hbnc/image/upload/v1779611055/P
         loading="eager"
       />
     </a>
+
+    <!-- Centered Brand Name -->
+  <div style="
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 900;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #F9F6F1;
+    pointer-events: none;
+    white-space: nowrap;
+  ">
+    VIP <span style="color: #E8900A;">BUKA</span>
+  </div>
+
 
     <!-- Hamburger Right -->
     <button
