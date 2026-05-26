@@ -1,24 +1,26 @@
----
----
-
 <section id="story" class="py-24 px-5" style="background: #181f19;">
   <div class="max-w-5xl mx-auto">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
 
-      <!-- VIDEO CARD -->
-      <div class="fade-up relative">
+      <!-- LEFT: Label + Video -->
+      <div class="fade-up">
 
-        <!-- Our Story label above video -->
-       <div class="section-label mb-4" style="font-size: 1.5rem;">Our Story</div>
+        <div class="section-label mb-5">Our Story</div>
+
+        <!--
+          ┌─────────────────────────────────────────┐
+          │  TO ADJUST VIDEO HEIGHT:                │
+          │  Change aspect-ratio below.             │
+          │  3/4 = tall portrait (current)          │
+          │  1/1 = square                           │
+          │  4/5 = slightly shorter portrait        │
+          └─────────────────────────────────────────┘
+        -->
         <div
+          id="story-video-wrap"
           class="relative rounded-sm overflow-hidden"
-          style="aspect-ratio: 3/4; min-height: 560px; background: #111411; border: 1px solid rgba(42,107,60,0.2);"
+          style="aspect-ratio: 3/4; background: #0d1410; border: 1px solid rgba(42,107,60,0.2);"
         >
-          <!-- Corner accents -->
-          <div class="absolute top-0 left-0 w-12 h-1 z-10" style="background: #E8900A;"></div>
-          <div class="absolute bottom-0 right-0 w-12 h-1 z-10" style="background: #2A6B3C;"></div>
-
-          <!-- Video -->
           <video
             id="story-video"
             autoplay
@@ -28,48 +30,85 @@
             style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"
           >
             <source
-              src="https://res.cloudinary.com/dx3k7hbnc/video/upload/VIP_BUKA_STORY_xranyd.mp4"
+              src="https://res.cloudinary.com/dx3k7hbnc/video/upload/VIP_BUKA_STORY_xranyd"
               type="video/mp4"
             />
           </video>
 
-          <!-- Bottom vignette -->
-          <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,14,10,0.72) 0%, rgba(10,14,10,0.0) 35%); pointer-events: none; z-index: 2;"></div>
+          <!-- Bottom scrim so controls always stay readable -->
+          <div style="
+            position: absolute; inset: 0; pointer-events: none;
+            background: linear-gradient(to top, rgba(10,15,11,0.82) 0%, transparent 32%);
+          "></div>
 
-          <!-- Controls -->
-          <div style="position: absolute; bottom: 0; left: 0; right: 0; z-index: 3; display: flex; align-items: center; justify-content: space-between; padding: 14px 16px;">
+          <!-- Corner marks -->
+          <div class="absolute top-0 left-0 w-12 h-px" style="background: #E8900A; height: 2px;"></div>
+          <div class="absolute bottom-0 right-0 w-12" style="background: #2A6B3C; height: 2px;"></div>
 
+          <!-- Controls row -->
+          <div style="
+            position: absolute; bottom: 0; left: 0; right: 0;
+            padding: 0 1.1rem 1.1rem;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 10;
+          ">
             <!-- Play / Pause -->
-            <button id="story-playpause" aria-label="Play or pause"
-              style="width: 36px; height: 36px; border-radius: 50%; background: rgba(17,20,17,0.7); border: 1px solid rgba(249,246,241,0.15); display: flex; align-items: center; justify-content: center; cursor: pointer; color: #F9F6F1; backdrop-filter: blur(6px);">
-              <svg id="icon-pause" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <rect x="2" y="1.5" width="3" height="9" rx="1" fill="currentColor"/>
-                <rect x="7" y="1.5" width="3" height="9" rx="1" fill="currentColor"/>
+            <button
+              id="story-play-btn"
+              aria-label="Pause video"
+              style="
+                width: 38px; height: 38px;
+                display: flex; align-items: center; justify-content: center;
+                background: rgba(13,20,16,0.65);
+                border: 1px solid rgba(249,246,241,0.18);
+                border-radius: 2px; cursor: pointer;
+                color: #F9F6F1;
+                backdrop-filter: blur(6px);
+                transition: border-color 0.2s ease, background 0.2s ease;
+              "
+            >
+              <svg id="icon-pause" width="11" height="11" viewBox="0 0 11 11" fill="none">
+                <rect x="1.5" y="1" width="2.8" height="9" rx="0.8" fill="currentColor"/>
+                <rect x="6.7" y="1" width="2.8" height="9" rx="0.8" fill="currentColor"/>
               </svg>
-              <svg id="icon-play" width="12" height="12" viewBox="0 0 12 12" fill="none" style="display:none;">
-                <path d="M2.5 1.5L10.5 6L2.5 10.5V1.5Z" fill="currentColor"/>
+              <svg id="icon-play" width="11" height="11" viewBox="0 0 11 11" fill="none" style="display:none;">
+                <path d="M2 1.2L10 5.5L2 9.8V1.2Z" fill="currentColor"/>
               </svg>
             </button>
 
             <!-- Mute / Unmute -->
-            <button id="story-mute" aria-label="Mute or unmute"
-              style="width: 36px; height: 36px; border-radius: 50%; background: rgba(17,20,17,0.7); border: 1px solid rgba(249,246,241,0.15); display: flex; align-items: center; justify-content: center; cursor: pointer; color: #F9F6F1; backdrop-filter: blur(6px);">
-              <svg id="icon-muted" width="14" height="12" viewBox="0 0 14 12" fill="none">
-                <path d="M1 4H3.5L7 1V11L3.5 8H1V4Z" fill="currentColor"/>
-                <path d="M10 4L13 8M13 4L10 8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            <button
+              id="story-mute-btn"
+              aria-label="Unmute video"
+              style="
+                width: 38px; height: 38px;
+                display: flex; align-items: center; justify-content: center;
+                background: rgba(13,20,16,0.65);
+                border: 1px solid rgba(249,246,241,0.18);
+                border-radius: 2px; cursor: pointer;
+                color: #F9F6F1;
+                backdrop-filter: blur(6px);
+                transition: border-color 0.2s ease, background 0.2s ease;
+              "
+            >
+              <!-- Muted (default — autoplay is muted) -->
+              <svg id="icon-muted" width="15" height="12" viewBox="0 0 15 12" fill="none">
+                <path d="M1 4.2H3.8L7.5 1V11L3.8 7.8H1V4.2Z" fill="currentColor"/>
+                <path d="M11.5 4L9.5 6M9.5 4L11.5 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
               </svg>
-              <svg id="icon-unmuted" width="14" height="12" viewBox="0 0 14 12" fill="none" style="display:none;">
-                <path d="M1 4H3.5L7 1V11L3.5 8H1V4Z" fill="currentColor"/>
-                <path d="M9.5 3.5C10.5 4.5 10.5 7.5 9.5 8.5M11.5 2C13.2 3.7 13.2 8.3 11.5 10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+              <!-- Unmuted -->
+              <svg id="icon-unmuted" width="15" height="12" viewBox="0 0 15 12" fill="none" style="display:none;">
+                <path d="M1 4.2H3.8L7.5 1V11L3.8 7.8H1V4.2Z" fill="currentColor"/>
+                <path d="M9.8 3.8C10.9 4.9 10.9 7.1 9.8 8.2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M11.8 2C13.8 4 13.8 8 11.8 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
               </svg>
             </button>
-
           </div>
         </div>
       </div>
 
-      <!-- TEXT SIDE -->
-      <div class="fade-up flex flex-col justify-start">
+      <!-- RIGHT: Text — padding-top aligns with video start (after label) -->
+      <div class="fade-up" style="padding-top: 2.6rem;">
 
         <h2
           class="font-playfair text-cream mb-6"
@@ -96,7 +135,6 @@
         <p class="font-playfair mt-8 italic" style="font-size: 1.1rem; color: #E8900A;">
           From our pots to your hearts.
         </p>
-
       </div>
 
     </div>
@@ -104,36 +142,53 @@
 </section>
 
 <script>
-  const video = document.getElementById('story-video') as HTMLVideoElement;
-  const playPauseBtn = document.getElementById('story-playpause');
-  const muteBtn = document.getElementById('story-mute');
-  const iconPause = document.getElementById('icon-pause');
-  const iconPlay = document.getElementById('icon-play');
-  const iconMuted = document.getElementById('icon-muted');
-  const iconUnmuted = document.getElementById('icon-unmuted');
+  const video     = document.getElementById('story-video')    as HTMLVideoElement;
+  const playBtn   = document.getElementById('story-play-btn') as HTMLButtonElement;
+  const muteBtn   = document.getElementById('story-mute-btn') as HTMLButtonElement;
+  const iconPause   = document.getElementById('icon-pause')!;
+  const iconPlay    = document.getElementById('icon-play')!;
+  const iconMuted   = document.getElementById('icon-muted')!;
+  const iconUnmuted = document.getElementById('icon-unmuted')!;
 
-  playPauseBtn?.addEventListener('click', () => {
-    if (!video) return;
+  playBtn.addEventListener('click', () => {
     if (video.paused) {
       video.play();
-      iconPause!.style.display = 'block';
-      iconPlay!.style.display = 'none';
+      iconPause.style.display = 'block';
+      iconPlay.style.display  = 'none';
+      playBtn.setAttribute('aria-label', 'Pause video');
     } else {
       video.pause();
-      iconPause!.style.display = 'none';
-      iconPlay!.style.display = 'block';
+      iconPause.style.display = 'none';
+      iconPlay.style.display  = 'block';
+      playBtn.setAttribute('aria-label', 'Play video');
     }
   });
 
-  muteBtn?.addEventListener('click', () => {
-    if (!video) return;
-    video.muted = !video.muted;
+  muteBtn.addEventListener('click', () => {
     if (video.muted) {
-      iconMuted!.style.display = 'block';
-      iconUnmuted!.style.display = 'none';
+      video.muted = false;
+      iconMuted.style.display   = 'none';
+      iconUnmuted.style.display = 'block';
+      muteBtn.setAttribute('aria-label', 'Mute video');
     } else {
-      iconMuted!.style.display = 'none';
-      iconUnmuted!.style.display = 'block';
+      video.muted = true;
+      iconMuted.style.display   = 'block';
+      iconUnmuted.style.display = 'none';
+      muteBtn.setAttribute('aria-label', 'Unmute video');
     }
+  });
+
+  const hoverOn  = (btn: HTMLElement) => {
+    btn.style.borderColor = 'rgba(232,144,10,0.55)';
+    btn.style.background  = 'rgba(232,144,10,0.08)';
+  };
+  const hoverOff = (btn: HTMLElement) => {
+    btn.style.borderColor = 'rgba(249,246,241,0.18)';
+    btn.style.background  = 'rgba(13,20,16,0.65)';
+  };
+
+  [playBtn, muteBtn].forEach(btn => {
+    btn.addEventListener('mouseenter', () => hoverOn(btn));
+    btn.addEventListener('mouseleave', () => hoverOff(btn));
   });
 </script>
