@@ -9,27 +9,20 @@
       <div class="fade-up relative">
         <div
           class="relative rounded-sm overflow-hidden"
-          style="aspect-ratio: 2/3; background: #111411; border: 1px solid rgba(42,107,60,0.2);"
+          style="aspect-ratio: 3/4; min-height: 500px; background: #111411; border: 1px solid rgba(42,107,60,0.2);"
         >
           <!-- Corner accents -->
           <div class="absolute top-0 left-0 w-12 h-1 z-10" style="background: #E8900A;"></div>
           <div class="absolute bottom-0 right-0 w-12 h-1 z-10" style="background: #2A6B3C;"></div>
 
-          <!-- Video fills the entire card -->
+          <!-- Video -->
           <video
             id="story-video"
             autoplay
             muted
             loop
             playsinline
-            style="
-              position: absolute;
-              inset: 0;
-              width: 100%;
-              height: 100%;
-              object-fit: cover;
-              display: block;
-            "
+            style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"
           >
             <source
               src="https://res.cloudinary.com/dx3k7hbnc/video/upload/VIP_BUKA_STORY_xranyd.mp4"
@@ -37,97 +30,37 @@
             />
           </video>
 
-          <!-- Subtle dark vignette overlay so controls are legible -->
-          <div
-            style="
-              position: absolute;
-              inset: 0;
-              background: linear-gradient(
-                to top,
-                rgba(10,14,10,0.72) 0%,
-                rgba(10,14,10,0.0) 35%
-              );
-              pointer-events: none;
-              z-index: 2;
-            "
-          ></div>
+          <!-- Bottom vignette -->
+          <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,14,10,0.72) 0%, rgba(10,14,10,0.0) 35%); pointer-events: none; z-index: 2;"></div>
 
-          <!-- Controls bar -->
-          <div
-            style="
-              position: absolute;
-              bottom: 0;
-              left: 0;
-              right: 0;
-              z-index: 3;
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-              padding: 14px 16px;
-            "
-          >
+          <!-- Controls -->
+          <div style="position: absolute; bottom: 0; left: 0; right: 0; z-index: 3; display: flex; align-items: center; justify-content: space-between; padding: 14px 16px;">
+
             <!-- Play / Pause -->
-            <button
-              id="story-playpause"
-              aria-label="Play or pause video"
-              style="
-                width: 36px;
-                height: 36px;
-                border-radius: 50%;
-                background: rgba(17,20,17,0.7);
-                border: 1px solid rgba(249,246,241,0.15);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                color: #F9F6F1;
-                transition: border-color 0.2s, background 0.2s;
-                backdrop-filter: blur(6px);
-                -webkit-backdrop-filter: blur(6px);
-              "
-            >
-              <!-- Pause icon (shown when playing) -->
+            <button id="story-playpause" aria-label="Play or pause"
+              style="width: 36px; height: 36px; border-radius: 50%; background: rgba(17,20,17,0.7); border: 1px solid rgba(249,246,241,0.15); display: flex; align-items: center; justify-content: center; cursor: pointer; color: #F9F6F1; backdrop-filter: blur(6px);">
               <svg id="icon-pause" width="12" height="12" viewBox="0 0 12 12" fill="none">
                 <rect x="2" y="1.5" width="3" height="9" rx="1" fill="currentColor"/>
                 <rect x="7" y="1.5" width="3" height="9" rx="1" fill="currentColor"/>
               </svg>
-              <!-- Play icon (hidden when playing) -->
               <svg id="icon-play" width="12" height="12" viewBox="0 0 12 12" fill="none" style="display:none;">
                 <path d="M2.5 1.5L10.5 6L2.5 10.5V1.5Z" fill="currentColor"/>
               </svg>
             </button>
 
             <!-- Mute / Unmute -->
-            <button
-              id="story-mute"
-              aria-label="Mute or unmute video"
-              style="
-                width: 36px;
-                height: 36px;
-                border-radius: 50%;
-                background: rgba(17,20,17,0.7);
-                border: 1px solid rgba(249,246,241,0.15);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                color: #F9F6F1;
-                transition: border-color 0.2s, background 0.2s;
-                backdrop-filter: blur(6px);
-                -webkit-backdrop-filter: blur(6px);
-              "
-            >
-              <!-- Muted icon (shown when muted) -->
+            <button id="story-mute" aria-label="Mute or unmute"
+              style="width: 36px; height: 36px; border-radius: 50%; background: rgba(17,20,17,0.7); border: 1px solid rgba(249,246,241,0.15); display: flex; align-items: center; justify-content: center; cursor: pointer; color: #F9F6F1; backdrop-filter: blur(6px);">
               <svg id="icon-muted" width="14" height="12" viewBox="0 0 14 12" fill="none">
                 <path d="M1 4H3.5L7 1V11L3.5 8H1V4Z" fill="currentColor"/>
                 <path d="M10 4L13 8M13 4L10 8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
               </svg>
-              <!-- Unmuted icon (hidden when muted) -->
               <svg id="icon-unmuted" width="14" height="12" viewBox="0 0 14 12" fill="none" style="display:none;">
                 <path d="M1 4H3.5L7 1V11L3.5 8H1V4Z" fill="currentColor"/>
                 <path d="M9.5 3.5C10.5 4.5 10.5 7.5 9.5 8.5M11.5 2C13.2 3.7 13.2 8.3 11.5 10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
               </svg>
             </button>
+
           </div>
         </div>
       </div>
@@ -140,7 +73,7 @@
           class="font-playfair text-cream mb-6"
           style="font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 600; line-height: 1.2;"
         >
-          Good food should be two things â€”<br/>
+          Good food should be two things —<br/>
           <em style="color: #E8900A; font-style: italic;">affordable</em> and deeply satisfying.
         </h2>
 
@@ -151,7 +84,7 @@
             Expensive food that disappoints is not a flex. That is the idea we built this place on.
           </p>
           <p class="font-dm text-cream/60 leading-relaxed text-sm">
-            We started VIP Buka to serve the rich, familiar flavors of a traditional local buka â€” with the clean, consistent standard the everyday person actually deserves.
+            We started VIP Buka to serve the rich, familiar flavors of a traditional local buka — with the clean, consistent standard the everyday person actually deserves.
           </p>
           <p class="font-dm text-cream/60 leading-relaxed text-sm">
             Real ingredients. Real portions. No shortcuts. Just food that reminds you why Nigerian cooking is in a category of its own.
@@ -176,57 +109,28 @@
   const iconMuted = document.getElementById('icon-muted');
   const iconUnmuted = document.getElementById('icon-unmuted');
 
-  // Hover glow on buttons
-  [playPauseBtn, muteBtn].forEach(btn => {
-    btn?.addEventListener('mouseenter', () => {
-      if (btn) {
-        (btn as HTMLElement).style.borderColor = 'rgba(232,144,10,0.5)';
-        (btn as HTMLElement).style.background = 'rgba(17,20,17,0.9)';
-      }
-    });
-    btn?.addEventListener('mouseleave', () => {
-      if (btn) {
-        (btn as HTMLElement).style.borderColor = 'rgba(249,246,241,0.15)';
-        (btn as HTMLElement).style.background = 'rgba(17,20,17,0.7)';
-      }
-    });
-  });
-
-  // Play / Pause toggle
   playPauseBtn?.addEventListener('click', () => {
     if (!video) return;
     if (video.paused) {
       video.play();
-      if (iconPause) iconPause.style.display = 'block';
-      if (iconPlay) iconPlay.style.display = 'none';
+      iconPause!.style.display = 'block';
+      iconPlay!.style.display = 'none';
     } else {
       video.pause();
-      if (iconPause) iconPause.style.display = 'none';
-      if (iconPlay) iconPlay.style.display = 'block';
+      iconPause!.style.display = 'none';
+      iconPlay!.style.display = 'block';
     }
   });
 
-  // Mute / Unmute toggle
   muteBtn?.addEventListener('click', () => {
     if (!video) return;
     video.muted = !video.muted;
     if (video.muted) {
-      if (iconMuted) iconMuted.style.display = 'block';
-      if (iconUnmuted) iconUnmuted.style.display = 'none';
+      iconMuted!.style.display = 'block';
+      iconUnmuted!.style.display = 'none';
     } else {
-      if (iconMuted) iconMuted.style.display = 'none';
-      if (iconUnmuted) iconUnmuted.style.display = 'block';
+      iconMuted!.style.display = 'none';
+      iconUnmuted!.style.display = 'block';
     }
   });
-
-  // Sync icons with initial muted state (autoplay starts muted)
-  if (video) {
-    if (video.muted) {
-      if (iconMuted) iconMuted.style.display = 'block';
-      if (iconUnmuted) iconUnmuted.style.display = 'none';
-    } else {
-      if (iconMuted) iconMuted.style.display = 'none';
-      if (iconUnmuted) iconUnmuted.style.display = 'block';
-    }
-  }
 </script>
