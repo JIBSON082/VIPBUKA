@@ -125,7 +125,7 @@ export default function FoodCarousel() {
   const dish = dishes[current];
 
   return (
-  <div style={{ fontFamily: "'DM Sans', sans-serif", marginTop: "-30px" }}>
+  <div style={{ fontFamily: "'DM Sans', sans-serif"}}>
 
       {/* ── ORBITAL CAROUSEL ── */}
       <div
