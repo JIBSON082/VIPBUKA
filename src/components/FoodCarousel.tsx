@@ -134,7 +134,7 @@ export default function FoodCarousel() {
           width: "100%",
           maxWidth: "520px",
           margin: "1.5rem auto 0",
-          aspectRatio: "1 / 0.75",
+          aspectRatio: "1 / 0.9",
           top: "-6px",
         }}
       >
