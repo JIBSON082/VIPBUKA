@@ -5,57 +5,39 @@ const logoUrl = "https://res.cloudinary.com/dx3k7hbnc/image/upload/v1779611055/P
 <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
  <div class="max-w-7xl mx-auto px-5 py-4 flex items-center justify-between relative">
 
-    <!-- Logo Left -->
-    <a href="/" aria-label="VIP Buka Home">
-      <img
-        src={logoUrl}
-        alt="VIP Buka"
-        class="h-10 w-auto object-contain"
-        loading="eager"
-      />
-    </a>
+  <!-- Wordmark Left -->
+  <a href="/" aria-label="VIP Buka Home" style="text-decoration: none; display: flex; align-items: baseline; gap: 0.4rem;">
+    <span style="
+      font-family: 'Russo One', sans-serif;
+      font-size: 2.4rem;
+      letter-spacing: 0.08em;
+      color: #F9F6F1;
+      line-height: 1;
+      text-transform: uppercase;
+    ">VIP</span>
+    <span style="
+      font-family: 'Russo One', sans-serif;
+      font-size: 2.4rem;
+      letter-spacing: 0.08em;
+      color: #E8900A;
+      line-height: 1;
+      text-transform: uppercase;
+      text-shadow: 0 0 30px rgba(232,144,10,0.4);
+    ">BUKA</span>
+  </a>
 
-<div style="
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  pointer-events: none;
-  white-space: nowrap;
-  display: flex;
-  align-items: baseline;
-  gap: 0.4rem;
-">
-  <span style="
-    font-family: 'Anton', sans-serif;
-    font-size: 2.4rem;
-    letter-spacing: 0.08em;
-    color: #F9F6F1;
-    line-height: 1;
-    text-transform: uppercase;
-  ">VIP</span>
-  <span style="
-    font-family: 'Russo One', sans-serif;
-    font-size: 2.4rem;
-    letter-spacing: 0.08em;
-    color: #E8900A;
-    line-height: 1;
-    text-transform: uppercase;
-    text-shadow: 0 0 30px rgba(232,144,10,0.4);
-  ">BUKA</span>
+  <!-- Hamburger Right -->
+  <button
+    id="hamburger"
+    aria-label="Open menu"
+    class="flex flex-col gap-[5px] cursor-pointer group"
+  >
+    <span class="block w-6 h-[1.5px] bg-cream transition-all duration-300 group-hover:w-8"></span>
+    <span class="block w-4 h-[1.5px] bg-cream transition-all duration-300 group-hover:w-8"></span>
+    <span class="block w-6 h-[1.5px] bg-cream transition-all duration-300 group-hover:w-8"></span>
+  </button>
+
 </div>
-
-    <!-- Hamburger Right -->
-    <button
-      id="hamburger"
-      aria-label="Open menu"
-      class="flex flex-col gap-[5px] cursor-pointer group"
-    >
-      <span class="block w-6 h-[1.5px] bg-cream transition-all duration-300 group-hover:w-8"></span>
-      <span class="block w-4 h-[1.5px] bg-cream transition-all duration-300 group-hover:w-8"></span>
-      <span class="block w-6 h-[1.5px] bg-cream transition-all duration-300 group-hover:w-8"></span>
-    </button>
-
-  </div>
 </nav>
 
 <!-- Nav Drawer -->
