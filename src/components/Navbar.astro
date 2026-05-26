@@ -6,28 +6,42 @@ const logoUrl = "https://res.cloudinary.com/dx3k7hbnc/image/upload/v1779611055/P
  <div class="max-w-7xl mx-auto px-5 py-4 flex items-center justify-between relative">
 
   <!-- Wordmark Left -->
-  <a href="/" style="text-decoration: none; position: relative; display: inline-flex; cursor: pointer;">
+  <a href="/" style="text-decoration: none; position: relative; display: inline-block; line-height: 1; overflow: hidden;">
+  <!-- Ghost layer — perfectly behind -->
   <span style="
     font-family: 'Oswald', sans-serif;
     font-size: 2.2rem;
     font-weight: 700;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: transparent;
-    -webkit-text-stroke: 1px rgba(249,246,241,0.25);
+    -webkit-text-stroke: 1.2px rgba(232,144,10,0.18);
     position: absolute;
-    left: 3px;
-    top: 2px;
+    left: 4px;
+    top: 4px;
+    white-space: nowrap;
+    pointer-events: none;
   ">VIP BUKA</span>
+  <!-- Main layer -->
   <span style="
     font-family: 'Oswald', sans-serif;
     font-size: 2.2rem;
     font-weight: 700;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: #F9F6F1;
+    white-space: nowrap;
     position: relative;
-  ">VIP <span style="color: #E8900A; text-shadow: 0 0 25px rgba(232,144,10,0.35);">BUKA</span></span>
+    background: linear-gradient(135deg, #ffffff 0%, #d4cfc9 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  ">VIP <span style="
+    background: linear-gradient(135deg, #E8900A 0%, #f5b942 50%, #E8900A 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 8px rgba(232,144,10,0.5));
+  ">BUKA</span></span>
 </a>
 
   <!-- Hamburger Right -->
