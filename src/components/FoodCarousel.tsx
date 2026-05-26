@@ -32,7 +32,7 @@ const dishes = [
   {
     id: 5,
     name: "Egusi Soup & Swallow",
-    description: "Nigerian egusi soup made with ground melon seeds, leafy vegetables, and assorted ingredients. Served with your choice of swallow.",
+    description: "Rich Nigerian egusi soup with assorted meats and fresh vegetables. Served with your choice of swallow.",
     price: "From ₦2,850",
     image: "https://res.cloudinary.com/dx3k7hbnc/image/upload/v1779587824/vn9tdbskshrmy0cyaxd8cnf70g_result_0_texrlg.png",
   },
