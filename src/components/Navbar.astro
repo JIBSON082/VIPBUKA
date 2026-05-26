@@ -6,43 +6,55 @@ const logoUrl = "https://res.cloudinary.com/dx3k7hbnc/image/upload/v1779611055/P
  <div class="max-w-7xl mx-auto px-5 py-4 flex items-center justify-between relative">
 
   <!-- Wordmark Left -->
-  <a href="/" style="text-decoration: none; position: relative; display: inline-block; line-height: 1; overflow: hidden;">
-  <!-- Ghost layer — perfectly behind -->
+  <a href="/" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.55rem; cursor: pointer; position: relative;">
+
+  <!-- VIP — Outlined, architectural, ghostly -->
   <span style="
     font-family: 'Oswald', sans-serif;
-    font-size: 2.2rem;
+    font-size: 1.95rem;
     font-weight: 700;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: transparent;
-    -webkit-text-stroke: 1.2px rgba(232,144,10,0.18);
-    position: absolute;
-    left: 4px;
-    top: 4px;
-    white-space: nowrap;
-    pointer-events: none;
-  ">VIP BUKA</span>
-  <!-- Main layer -->
+    -webkit-text-stroke: 1.5px rgba(249,246,241,0.9);
+    line-height: 1;
+    transition: -webkit-text-stroke 0.3s ease;
+  " id="vip-text">VIP</span>
+
+  <!-- Separator -->
+  <span style="
+    width: 1px;
+    height: 1.6rem;
+    background: linear-gradient(to bottom, transparent, rgba(232,144,10,0.7), transparent);
+    display: inline-block;
+    flex-shrink: 0;
+  "></span>
+
+  <!-- BUKA — Solid, heavy, molten gold -->
   <span style="
     font-family: 'Oswald', sans-serif;
-    font-size: 2.2rem;
+    font-size: 1.95rem;
     font-weight: 700;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    white-space: nowrap;
-    position: relative;
-    background: linear-gradient(135deg, #ffffff 0%, #d4cfc9 100%);
+    background: linear-gradient(135deg, #c46a00 0%, #E8900A 25%, #f7c56e 50%, #E8900A 75%, #c46a00 100%);
+    background-size: 200% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-  ">VIP <span style="
-    background: linear-gradient(135deg, #E8900A 0%, #f5b942 50%, #E8900A 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    filter: drop-shadow(0 0 8px rgba(232,144,10,0.5));
-  ">BUKA</span></span>
+    filter: drop-shadow(0 0 12px rgba(232,144,10,0.5));
+    line-height: 1;
+    animation: goldShimmer 4s linear infinite;
+  ">BUKA</span>
+
 </a>
+
+<style>
+  @keyframes goldShimmer {
+    0%   { background-position: 0% center; }
+    100% { background-position: 200% center; }
+  }
+</style>
 
   <!-- Hamburger Right -->
   <button
