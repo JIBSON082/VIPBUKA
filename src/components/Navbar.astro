@@ -42,7 +42,10 @@ const logoUrl = "https://res.cloudinary.com/dx3k7hbnc/image/upload/v1779611055/P
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    filter: drop-shadow(0 0 16px rgba(232,144,10,0.7)) drop-shadow(0 0 30px rgba(232,144,10,0.3));
+    filter: drop-shadow(0 0 8px rgba(232,144,10,0.9)) 
+        drop-shadow(0 0 20px rgba(232,144,10,0.6)) 
+        drop-shadow(0 0 45px rgba(232,144,10,0.3))
+        drop-shadow(0 0 80px rgba(232,144,10,0.15));
     line-height: 1;
     animation: goldShimmer 3s linear infinite;
   ">BUKA</span>
@@ -58,14 +61,14 @@ const logoUrl = "https://res.cloudinary.com/dx3k7hbnc/image/upload/v1779611055/P
 
   <!-- Hamburger Right -->
   <button
-    id="hamburger"
-    aria-label="Open menu"
-    class="flex flex-col gap-[5px] cursor-pointer group"
-  >
-    <span class="block w-6 h-[1.5px] bg-cream transition-all duration-300 group-hover:w-8"></span>
-    <span class="block w-4 h-[1.5px] bg-cream transition-all duration-300 group-hover:w-8"></span>
-    <span class="block w-6 h-[1.5px] bg-cream transition-all duration-300 group-hover:w-8"></span>
-  </button>
+  id="hamburger"
+  aria-label="Open menu"
+  class="flex flex-col gap-[7px] cursor-pointer group"
+>
+  <span class="block h-[2px] bg-cream transition-all duration-300 group-hover:w-10" style="width: 32px;"></span>
+  <span class="block h-[2px] bg-cream transition-all duration-300 group-hover:w-10" style="width: 20px;"></span>
+  <span class="block h-[2px] bg-cream transition-all duration-300 group-hover:w-10" style="width: 32px;"></span>
+</button>
 
 </div>
 </nav>
