@@ -47,8 +47,6 @@ const dishes = [
 
 const ORBIT_COUNT = dishes.length;
 
-// Active dish sits at BOTTOM of orbit (90deg = bottom in SVG coords)
-// offsetAngle starts at 90 so index 0 begins at bottom
 function getOrbitPosition(index: number, total: number, offsetAngle: number) {
   const angle = ((index / total) * 360 + offsetAngle + 90) * (Math.PI / 180);
   const rx = 45;
@@ -70,25 +68,21 @@ export default function FoodCarousel() {
   const animateToAngle = useCallback((from: number, to: number, onDone: () => void) => {
     const duration = 620;
     const start = performance.now();
-
     function step(now: number) {
       const elapsed = now - start;
       const progress = Math.min(elapsed / duration, 1);
       const eased = progress < 0.5
         ? 4 * progress * progress * progress
         : 1 - Math.pow(-2 * progress + 2, 3) / 2;
-
       const angle = from + (to - from) * eased;
       currentAngleRef.current = angle;
       setOrbitAngle(angle);
-
       if (progress < 1) {
         animFrameRef.current = requestAnimationFrame(step);
       } else {
         onDone();
       }
     }
-
     if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
     animFrameRef.current = requestAnimationFrame(step);
   }, []);
@@ -125,17 +119,16 @@ export default function FoodCarousel() {
   const dish = dishes[current];
 
   return (
-  <div style={{ fontFamily: "'DM Sans', sans-serif"}}>
+    <div style={{ fontFamily: "'DM Sans', sans-serif" }}>
 
       {/* ── ORBITAL CAROUSEL ── */}
       <div
         style={{
           position: "relative",
           width: "100%",
-          maxWidth: "520px",
-          margin: "1.5rem auto 0",
-          aspectRatio: "1 / 0.8",
-          top: "-5px",
+          maxWidth: "480px",
+          margin: "0 auto",
+          aspectRatio: "1 / 0.75",
         }}
       >
         {/* Dashed orbit ellipse */}
@@ -165,7 +158,6 @@ export default function FoodCarousel() {
         {dishes.map((d, i) => {
           const pos = getOrbitPosition(i, dishes.length, orbitAngle);
           const isActive = i === current;
-
           return (
             <button
               key={d.id}
@@ -198,13 +190,11 @@ export default function FoodCarousel() {
               }}
             >
               <div style={{
-                width: isActive ? "clamp(110px, 22vw, 160px)" : "clamp(40px, 8vw, 58px)",
-                height: isActive ? "clamp(110px, 22vw, 160px)" : "clamp(40px, 8vw, 58px)",
+                width: isActive ? "clamp(100px, 20vw, 145px)" : "clamp(36px, 7.5vw, 54px)",
+                height: isActive ? "clamp(100px, 20vw, 145px)" : "clamp(36px, 7.5vw, 54px)",
                 borderRadius: "50%",
                 overflow: "hidden",
-                border: isActive
-                  ? "3px solid #E8900A"
-                  : "2px solid rgba(232,144,10,0.3)",
+                border: isActive ? "3px solid #E8900A" : "2px solid rgba(232,144,10,0.3)",
                 boxShadow: isActive
                   ? "0 0 0 6px rgba(232,144,10,0.12), 0 12px 40px rgba(0,0,0,0.5)"
                   : "0 4px 16px rgba(0,0,0,0.4)",
@@ -228,7 +218,7 @@ export default function FoodCarousel() {
           );
         })}
 
-        {/* Left arrow — vertically centred on orbit */}
+        {/* Left arrow */}
         <button
           onClick={prev}
           aria-label="Previous dish"
@@ -238,8 +228,8 @@ export default function FoodCarousel() {
             top: "50%",
             transform: "translateY(-50%)",
             zIndex: 10,
-            width: "36px",
-            height: "36px",
+            width: "34px",
+            height: "34px",
             borderRadius: "50%",
             background: "rgba(17,20,17,0.85)",
             border: "1px solid rgba(232,144,10,0.3)",
@@ -274,8 +264,8 @@ export default function FoodCarousel() {
             top: "50%",
             transform: "translateY(-50%)",
             zIndex: 10,
-            width: "36px",
-            height: "36px",
+            width: "34px",
+            height: "34px",
             borderRadius: "50%",
             background: "rgba(17,20,17,0.85)",
             border: "1px solid rgba(232,144,10,0.3)",
@@ -306,7 +296,7 @@ export default function FoodCarousel() {
         style={{
           textAlign: "center",
           maxWidth: "480px",
-          margin: "3.5rem auto 2rem",
+          margin: "1rem auto 0.75rem",
           opacity: isAnimating ? 0.4 : 1,
           transform: isAnimating ? "translateY(6px)" : "translateY(0)",
           transition: "opacity 0.35s ease, transform 0.35s ease",
@@ -318,7 +308,7 @@ export default function FoodCarousel() {
           letterSpacing: "0.3em",
           textTransform: "uppercase",
           color: "#E8900A",
-          marginBottom: "0.6rem",
+          marginBottom: "0.4rem",
         }}>
           {`${String(current + 1).padStart(2, "0")} / ${String(dishes.length).padStart(2, "0")}`}
         </div>
@@ -326,11 +316,11 @@ export default function FoodCarousel() {
         {/* Name */}
         <h3 style={{
           fontFamily: "'Playfair Display', serif",
-          fontSize: "clamp(1.4rem, 4vw, 2rem)",
+          fontSize: "clamp(1.3rem, 4vw, 1.9rem)",
           fontWeight: 700,
           color: "#F9F6F1",
           lineHeight: 1.2,
-          marginBottom: "0.5rem",
+          marginBottom: "0.4rem",
         }}>
           {dish.name}
         </h3>
@@ -340,15 +330,15 @@ export default function FoodCarousel() {
           width: "28px",
           height: "2px",
           background: "#E8900A",
-          margin: "0 auto 0.65rem",
+          margin: "0 auto 0.5rem",
         }} />
 
         {/* Description */}
         <p style={{
-          fontSize: "0.82rem",
+          fontSize: "0.8rem",
           color: "rgba(249,246,241,0.55)",
-          lineHeight: 1.75,
-          marginBottom: "0.75rem",
+          lineHeight: 1.65,
+          marginBottom: "0.5rem",
           padding: "0 1rem",
         }}>
           {dish.description}
@@ -357,7 +347,7 @@ export default function FoodCarousel() {
         {/* Price */}
         <div style={{
           fontFamily: "'Playfair Display', serif",
-          fontSize: "1.5rem",
+          fontSize: "1.4rem",
           fontWeight: 700,
           color: "#2A6B3C",
         }}>
@@ -368,10 +358,11 @@ export default function FoodCarousel() {
       {/* ── CTAs ── */}
       <div style={{
         display: "flex",
-        gap: "1rem",
+        gap: "0.75rem",
         flexWrap: "wrap",
         justifyContent: "center",
         position: "relative",
+        marginTop: "0.75rem",
       }}>
 
         <a
@@ -383,11 +374,11 @@ export default function FoodCarousel() {
             background: "transparent",
             color: "#F9F6F1",
             fontFamily: "'DM Sans', sans-serif",
-            fontSize: "0.75rem",
+            fontSize: "0.7rem",
             fontWeight: 600,
             letterSpacing: "0.15em",
             textTransform: "uppercase",
-            padding: "0.875rem 2rem",
+            padding: "0.75rem 1.75rem",
             borderRadius: "2px",
             border: "1px solid rgba(249,246,241,0.25)",
             textDecoration: "none",
@@ -409,11 +400,11 @@ export default function FoodCarousel() {
               background: "#2A6B3C",
               color: "#F9F6F1",
               fontFamily: "'DM Sans', sans-serif",
-              fontSize: "0.75rem",
+              fontSize: "0.7rem",
               fontWeight: 600,
               letterSpacing: "0.15em",
               textTransform: "uppercase",
-              padding: "0.875rem 2rem",
+              padding: "0.75rem 1.75rem",
               borderRadius: "2px",
               border: "none",
               cursor: "pointer",
