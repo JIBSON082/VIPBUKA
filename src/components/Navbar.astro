@@ -8,10 +8,10 @@ const logoUrl = "https://res.cloudinary.com/dx3k7hbnc/image/upload/v1779611055/P
     <!-- Wordmark Left -->
     <a href="/" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.6rem; cursor: pointer;">
       <span style="
-        font-family: 'Playfair Display', sans-serif;
-        font-size: 2.05rem;
-        font-weight: 600;
-        letter-spacing: 0.05em;
+        font-family: 'Oswald', sans-serif;
+        font-size: 2.35rem;
+        font-weight: 700;
+        letter-spacing: 0.15em;
         text-transform: uppercase;
         color: transparent;
         -webkit-text-stroke: 2px rgba(249,246,241,1);
@@ -25,10 +25,10 @@ const logoUrl = "https://res.cloudinary.com/dx3k7hbnc/image/upload/v1779611055/P
         flex-shrink: 0;
       "></span>
       <span style="
-        font-family: 'Playfair Display', sans-serif;
-        font-size: 2.05rem;
+        font-family: 'Oswald', sans-serif;
+        font-size: 2.35rem;
         font-weight: 700;
-        letter-spacing: 0.01em;
+        letter-spacing: 0.08em;
         text-transform: uppercase;
         background: linear-gradient(135deg, #c46a00 0%, #E8900A 20%, #f7c56e 50%, #E8900A 80%, #c46a00 100%);
         background-size: 200% auto;
@@ -45,15 +45,15 @@ const logoUrl = "https://res.cloudinary.com/dx3k7hbnc/image/upload/v1779611055/P
     </a>
 
     <!-- Hamburger Right -->
-  <button
-  id="hamburger"
-  aria-label="Open menu"
-  class="flex flex-col gap-[7px] cursor-pointer group relative w-[28px] h-[20px]"
->
-  <span class="hamburger-line block h-[1.5px] bg-cream absolute top-0 left-0 w-full transition-all duration-500 ease-in-out origin-center"></span>
-  <span class="hamburger-line block h-[1.5px] bg-cream absolute top-[9px] left-0 transition-all duration-300 ease-in-out origin-center" style="width: 18px;"></span>
-  <span class="hamburger-line block h-[1.5px] bg-cream absolute bottom-0 left-0 w-full transition-all duration-200 ease-in-out origin-center"></span>
-</button>
+    <button
+      id="hamburger"
+      aria-label="Open menu"
+      class="flex flex-col gap-[7px] cursor-pointer group"
+    >
+      <span class="block h-[2px] bg-cream transition-all duration-300 group-hover:w-10" style="width: 32px;"></span>
+      <span class="block h-[2px] bg-cream transition-all duration-300 group-hover:w-10" style="width: 20px;"></span>
+      <span class="block h-[2px] bg-cream transition-all duration-300 group-hover:w-10" style="width: 32px;"></span>
+    </button>
 
   </div>
 </nav>
@@ -79,7 +79,7 @@ const logoUrl = "https://res.cloudinary.com/dx3k7hbnc/image/upload/v1779611055/P
     <div class="flex items-center justify-between px-7 py-6" style="border-bottom: 1px solid rgba(42,107,60,0.2);">
       <div style="display: inline-flex; align-items: center; gap: 0.4rem;">
         <span style="
-          font-family: 'Playfair Display', sans-serif;
+          font-family: 'Oswald', sans-serif;
           font-size: 1.6rem;
           font-weight: 700;
           letter-spacing: 0.15em;
@@ -94,7 +94,7 @@ const logoUrl = "https://res.cloudinary.com/dx3k7hbnc/image/upload/v1779611055/P
           display: inline-block;
         "></span>
         <span style="
-          font-family: 'Playfair Display', sans-serif;
+          font-family: 'Oswald', sans-serif;
           font-size: 1.6rem;
           font-weight: 700;
           letter-spacing: 0.08em;
@@ -226,37 +226,24 @@ const logoUrl = "https://res.cloudinary.com/dx3k7hbnc/image/upload/v1779611055/P
   });
 
   function openDrawer() {
-  hamburger?.classList.add('is-open');
-  const lines = hamburger?.querySelectorAll('.hamburger-line');
-  if (lines) {
-    lines[0].style.cssText = 'top: 9px; transform: rotate(45deg);';
-    lines[1].style.cssText = 'width: 0; opacity: 0;';
-    lines[2].style.cssText = 'bottom: auto; top: 9px; transform: rotate(-45deg);';
+    drawer!.classList.remove('pointer-events-none');
+    backdrop!.classList.remove('opacity-0');
+    backdrop!.classList.add('opacity-100');
+    panel!.classList.remove('-translate-x-full');
+    panel!.classList.add('translate-x-0');
+    document.body.style.overflow = 'hidden';
   }
-  drawer!.classList.remove('pointer-events-none');
-  backdrop!.classList.remove('opacity-0');
-  backdrop!.classList.add('opacity-100');
-  panel!.classList.remove('-translate-x-full');
-  panel!.classList.add('translate-x-0');
-  document.body.style.overflow = 'hidden';
-}
 
-function closeDrawer() {
-  hamburger?.classList.remove('is-open');
-  const lines = hamburger?.querySelectorAll('.hamburger-line');
-  if (lines) {
-    lines[0].style.cssText = 'top: 0; transform: rotate(0deg);';
-    lines[1].style.cssText = 'width: 18px; opacity: 1;';
-    lines[2].style.cssText = 'bottom: 0; transform: rotate(0deg);';
+  function closeDrawer() {
+    drawer!.classList.add('pointer-events-none');
+    backdrop!.classList.remove('opacity-100');
+    backdrop!.classList.add('opacity-0');
+    panel!.classList.remove('translate-x-0');
+    panel!.classList.add('-translate-x-full');
+    document.body.style.overflow = '';
   }
-  drawer!.classList.add('pointer-events-none');
-  backdrop!.classList.remove('opacity-100');
-  backdrop!.classList.add('opacity-0');
-  panel!.classList.remove('translate-x-0');
-  panel!.classList.add('-translate-x-full');
-  document.body.style.overflow = '';
-}
-(window as any).closeDrawer = closeDrawer;
+
+  (window as any).closeDrawer = closeDrawer;
   hamburger?.addEventListener('click', openDrawer);
   closeBtn?.addEventListener('click', closeDrawer);
   backdrop?.addEventListener('click', closeDrawer);
