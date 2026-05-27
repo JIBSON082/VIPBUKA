@@ -358,9 +358,10 @@ export default function FoodCarousel() {
       {/* ── CTAs ── */}
       <div style={{
         display: "flex",
+        flexDirection: "column",
         gap: "0.75rem",
-        flexWrap: "wrap",
-        justifyContent: "center",
+        alignItems: "stretch",
+        padding: "0 1.5rem",
         position: "relative",
         marginTop: "0.75rem",
       }}>
@@ -374,8 +375,8 @@ export default function FoodCarousel() {
             background: "transparent",
             color: "#F9F6F1",
             fontFamily: "'DM Sans', sans-serif",
-            fontSize: "0.7rem",
-            fontWeight: 600,
+            fontSize: "0.8rem",
+            fontWeight: 700,
             letterSpacing: "0.15em",
             textTransform: "uppercase",
             padding: "0.75rem 1.75rem",
