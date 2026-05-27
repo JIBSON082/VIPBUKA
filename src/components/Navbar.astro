@@ -244,4 +244,8 @@ function closeDrawer() {
   panel!.classList.add('-translate-x-full');
   document.body.style.overflow = '';
 }
+(window as any).closeDrawer = closeDrawer;
+  hamburger?.addEventListener('click', openDrawer);
+  closeBtn?.addEventListener('click', closeDrawer);
+  backdrop?.addEventListener('click', closeDrawer);
 </script>
