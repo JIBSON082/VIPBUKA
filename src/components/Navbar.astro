@@ -226,7 +226,7 @@ const logoUrl = "https://res.cloudinary.com/dx3k7hbnc/image/upload/v1779611055/P
   });
 
   function openDrawer() {
-  hamburger?.classList.add('is-open');  
+  hamburger?.classList.add('is-open');  // ← ADD THIS
   drawer!.classList.remove('pointer-events-none');
   backdrop!.classList.remove('opacity-0');
   backdrop!.classList.add('opacity-100');
@@ -236,7 +236,7 @@ const logoUrl = "https://res.cloudinary.com/dx3k7hbnc/image/upload/v1779611055/P
 }
 
 function closeDrawer() {
-  hamburger?.classList.remove('is-open');
+  hamburger?.classList.remove('is-open');  // ← ADD THIS
   drawer!.classList.add('pointer-events-none');
   backdrop!.classList.remove('opacity-100');
   backdrop!.classList.add('opacity-0');
