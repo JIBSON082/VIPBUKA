@@ -226,7 +226,13 @@ const logoUrl = "https://res.cloudinary.com/dx3k7hbnc/image/upload/v1779611055/P
   });
 
   function openDrawer() {
-  hamburger?.classList.add('is-open');  // ← ADD THIS
+  hamburger?.classList.add('is-open');
+  const lines = hamburger?.querySelectorAll('.hamburger-line');
+  if (lines) {
+    lines[0].style.cssText = 'top: 9px; transform: rotate(45deg);';
+    lines[1].style.cssText = 'width: 0; opacity: 0;';
+    lines[2].style.cssText = 'bottom: auto; top: 9px; transform: rotate(-45deg);';
+  }
   drawer!.classList.remove('pointer-events-none');
   backdrop!.classList.remove('opacity-0');
   backdrop!.classList.add('opacity-100');
@@ -236,7 +242,13 @@ const logoUrl = "https://res.cloudinary.com/dx3k7hbnc/image/upload/v1779611055/P
 }
 
 function closeDrawer() {
-  hamburger?.classList.remove('is-open');  // ← ADD THIS
+  hamburger?.classList.remove('is-open');
+  const lines = hamburger?.querySelectorAll('.hamburger-line');
+  if (lines) {
+    lines[0].style.cssText = 'top: 0; transform: rotate(0deg);';
+    lines[1].style.cssText = 'width: 18px; opacity: 1;';
+    lines[2].style.cssText = 'bottom: 0; transform: rotate(0deg);';
+  }
   drawer!.classList.add('pointer-events-none');
   backdrop!.classList.remove('opacity-100');
   backdrop!.classList.add('opacity-0');
