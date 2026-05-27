@@ -225,35 +225,26 @@ const logoUrl = "https://res.cloudinary.com/dx3k7hbnc/image/upload/v1779611055/P
     }
   });
 
-  const lines = hamburger?.querySelectorAll('.hamburger-line') as NodeListOf<HTMLElement>;
+  function openDrawer() {
+    drawer!.classList.remove('pointer-events-none');
+    backdrop!.classList.remove('opacity-0');
+    backdrop!.classList.add('opacity-100');
+    panel!.classList.remove('-translate-x-full');
+    panel!.classList.add('translate-x-0');
+    document.body.style.overflow = 'hidden';
+  }
 
-function openDrawer() {
-  drawer!.classList.remove('pointer-events-none');
-  backdrop!.classList.remove('opacity-0');
-  backdrop!.classList.add('opacity-100');
-  panel!.classList.remove('-translate-x-full');
-  panel!.classList.add('translate-x-0');
-  document.body.style.overflow = 'hidden';
+  function closeDrawer() {
+    drawer!.classList.add('pointer-events-none');
+    backdrop!.classList.remove('opacity-100');
+    backdrop!.classList.add('opacity-0');
+    panel!.classList.remove('translate-x-0');
+    panel!.classList.add('-translate-x-full');
+    document.body.style.overflow = '';
+  }
 
-  // Morph into ×
-  hamburger?.setAttribute('aria-label', 'Close menu');
-  lines[0].style.cssText = 'transform: translateY(9px) rotate(45deg); width: 28px;';
-  lines[1].style.cssText = 'opacity: 0; transform: scaleX(0); width: 18px;';
-  lines[2].style.cssText = 'transform: translateY(-9px) rotate(-45deg); width: 28px;';
-}
-
-function closeDrawer() {
-  drawer!.classList.add('pointer-events-none');
-  backdrop!.classList.remove('opacity-100');
-  backdrop!.classList.add('opacity-0');
-  panel!.classList.remove('translate-x-0');
-  panel!.classList.add('-translate-x-full');
-  document.body.style.overflow = '';
-
-  // Revert to hamburger
-  hamburger?.setAttribute('aria-label', 'Open menu');
-  lines[0].style.cssText = 'transform: none; width: 28px;';
-  lines[1].style.cssText = 'opacity: 1; transform: scaleX(1); width: 18px;';
-  lines[2].style.cssText = 'transform: none; width: 28px;';
-}
+  (window as any).closeDrawer = closeDrawer;
+  hamburger?.addEventListener('click', openDrawer);
+  closeBtn?.addEventListener('click', closeDrawer);
+  backdrop?.addEventListener('click', closeDrawer);
 </script>
