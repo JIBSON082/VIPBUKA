@@ -373,12 +373,12 @@ export default function FoodCarousel() {
       alignItems: "center",
       justifyContent: "center",
       width: "100%",
-      maxWidth: "250px",
+      maxWidth: "200px",
       background: "transparent",
       color: "#F9F6F1",
       fontFamily: "'DM Sans', sans-serif",
-      fontSize: "0.7rem",
-      fontWeight: 600,
+      fontSize: "0.9rem",
+      fontWeight: 700,
       letterSpacing: "0.15em",
       textTransform: "uppercase",
       padding: "0.75rem 1.75rem",
@@ -393,7 +393,7 @@ export default function FoodCarousel() {
     Explore Menu
   </a>
 
-  <div style={{ position: "relative", width: "100%", maxWidth: "280px" }}>
+  <div style={{ position: "relative", width: "100%", maxWidth: "220px" }}>
     <button
       onClick={() => setOrderOpen(!orderOpen)}
       style={{
@@ -405,8 +405,8 @@ export default function FoodCarousel() {
         background: "#2A6B3C",
         color: "#F9F6F1",
         fontFamily: "'DM Sans', sans-serif",
-        fontSize: "0.7rem",
-        fontWeight: 600,
+        fontSize: "0.9rem",
+        fontWeight: 700,
         letterSpacing: "0.15em",
         textTransform: "uppercase",
         padding: "0.75rem 1.75rem",
