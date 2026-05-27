@@ -296,7 +296,7 @@ export default function FoodCarousel() {
         style={{
           textAlign: "center",
           maxWidth: "480px",
-          margin: "1rem auto 0.75rem",
+          margin: "2.5rem auto 0.75rem",
           opacity: isAnimating ? 0.4 : 1,
           transform: isAnimating ? "translateY(6px)" : "translateY(0)",
           transition: "opacity 0.35s ease, transform 0.35s ease",
