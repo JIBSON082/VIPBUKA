@@ -127,8 +127,8 @@ export default function FoodCarousel() {
           position: "relative",
           width: "100%",
           maxWidth: "480px",
-          margin: "-3.6rem 0 auto",
-          aspectRatio: "1 / 0.9",
+          margin: "-3.9rem 0 auto",
+          aspectRatio: "1 / 0.84",
         }}
       >
         {/* Dashed orbit ellipse */}
@@ -393,7 +393,7 @@ export default function FoodCarousel() {
     Explore Menu
   </a>
 
-  <div style={{ position: "relative", width: "100%", maxWidth: "220px" }}>
+  <div style={{ position: "relative", width: "100%", maxWidth: "200px" }}>
     <button
       onClick={() => setOrderOpen(!orderOpen)}
       style={{
