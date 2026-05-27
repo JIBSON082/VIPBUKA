@@ -1,3 +1,25 @@
+---
+import Layout from '../layouts/Layout.astro';
+import '../styles/global.css';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import OurStory from '../components/OurStory.astro';
+import Menu from '../components/Menu.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Contact from '../components/Contact.astro';
+---
+
+<Layout>
+  <Navbar />
+  <main>
+    <Hero />
+    <OurStory />
+    <Menu />
+    <Testimonials />
+    <Contact />
+  </main>
+</Layout>
+
 <script>
   import Lenis from 'lenis';
   import { gsap } from 'gsap';
@@ -5,6 +27,7 @@
 
   gsap.registerPlugin(ScrollTrigger);
 
+  // ── Lenis smooth scroll setup
   const lenis = new Lenis({
     duration: 1.0,
     easing: (t) => 1 - Math.pow(1 - t, 3),
@@ -12,15 +35,18 @@
     touchMultiplier: 1.0,
   });
 
-  function raf(time: number) {
-    lenis.raf(time);
-    ScrollTrigger.update();
-    requestAnimationFrame(raf);
-  }
+  // 1. Tell ScrollTrigger to update every time Lenis scrolls
+  lenis.on('scroll', ScrollTrigger.update);
 
-  requestAnimationFrame(raf);
+  // 2. Hook Lenis into GSAP ticker so ScrollTrigger stays in perfect sync
+  gsap.ticker.add((time) => {
+    lenis.raf(time * 1000);
+  });
 
-  // Scroll reveal
+  // 3. Prevent GSAP from trying to auto-correct lag, which causes scroll jumps
+  gsap.ticker.lagSmoothing(0);
+
+  // ── Scroll reveal for .fade-up elements
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
