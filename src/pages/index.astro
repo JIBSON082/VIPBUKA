@@ -7,7 +7,6 @@
 
   if (typeof window !== 'undefined') {
 
-    // ── Lenis — premium floaty config
     const lenis = new Lenis({
       duration: 1.8,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -24,42 +23,46 @@
 
     gsap.ticker.lagSmoothing(0);
 
-    // ── Fade up reveal
-    gsap.utils.toArray<HTMLElement>('.fade-up').forEach((el) => {
-      gsap.fromTo(
-        el,
-        { opacity: 0, y: 40 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1.4,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 88%',
-            toggleActions: 'play none none none',
-          },
-        }
-      );
-    });
+    // Wait for full DOM paint before initializing animations
+    window.addEventListener('load', () => {
 
-    // ── Section heading parallax
-    gsap.utils.toArray<HTMLElement>('h2').forEach((el) => {
-      gsap.fromTo(
-        el,
-        { y: 30 },
-        {
-          y: -30,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: el,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1.2,
-          },
-        }
-      );
-    });
+      ScrollTrigger.refresh();
 
+      gsap.utils.toArray<HTMLElement>('.fade-up').forEach((el) => {
+        gsap.fromTo(
+          el,
+          { opacity: 0, y: 40 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1.4,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 88%',
+              toggleActions: 'play none none none',
+            },
+          }
+        );
+      });
+
+      gsap.utils.toArray<HTMLElement>('h2').forEach((el) => {
+        gsap.fromTo(
+          el,
+          { y: 30 },
+          {
+            y: -30,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: 1.2,
+            },
+          }
+        );
+      });
+
+    });
   }
 </script>
