@@ -356,117 +356,121 @@ export default function FoodCarousel() {
       </div>
 
       {/* ── CTAs ── */}
+     {/* ── CTAs ── */}
+<div style={{
+  display: "flex",
+  flexDirection: "column",
+  gap: "0.75rem",
+  alignItems: "center",
+  padding: "0 1.5rem",
+  marginTop: "0.75rem",
+}}>
+
+  <a
+    href="#menu"
+    style={{
+      display: "inline-flex",
+      alignItems: "center",
+      justifyContent: "center",
+      width: "100%",
+      maxWidth: "320px",
+      background: "transparent",
+      color: "#F9F6F1",
+      fontFamily: "'DM Sans', sans-serif",
+      fontSize: "0.7rem",
+      fontWeight: 600,
+      letterSpacing: "0.15em",
+      textTransform: "uppercase",
+      padding: "0.75rem 1.75rem",
+      borderRadius: "2px",
+      border: "1px solid rgba(249,246,241,0.25)",
+      textDecoration: "none",
+      transition: "border-color 0.3s ease",
+    }}
+    onMouseEnter={e => (e.currentTarget.style.borderColor = "#F9F6F1")}
+    onMouseLeave={e => (e.currentTarget.style.borderColor = "rgba(249,246,241,0.25)")}
+  >
+    Explore Menu
+  </a>
+
+  <div style={{ position: "relative", width: "100%", maxWidth: "320px" }}>
+    <button
+      onClick={() => setOrderOpen(!orderOpen)}
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: "0.5rem",
+        width: "100%",
+        background: "#2A6B3C",
+        color: "#F9F6F1",
+        fontFamily: "'DM Sans', sans-serif",
+        fontSize: "0.7rem",
+        fontWeight: 600,
+        letterSpacing: "0.15em",
+        textTransform: "uppercase",
+        padding: "0.75rem 1.75rem",
+        borderRadius: "2px",
+        border: "none",
+        cursor: "pointer",
+      }}
+    >
+      Place an Order
+      <svg
+        width="10" height="10" viewBox="0 0 10 10" fill="none"
+        style={{ transform: orderOpen ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.3s ease" }}
+      >
+        <path d="M1 3L5 7L9 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+      </svg>
+    </button>
+
+    {orderOpen && (
       <div style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "0.75rem",
-        alignItems: "stretch",
-        padding: "0 1.5rem",
-        position: "relative",
-        marginTop: "0.75rem",
+        position: "absolute",
+        bottom: "calc(100% + 8px)",
+        left: "50%",
+        transform: "translateX(-50%)",
+        background: "#181f19",
+        border: "1px solid rgba(42,107,60,0.25)",
+        borderRadius: "2px",
+        minWidth: "220px",
+        overflow: "hidden",
+        zIndex: 100,
+        animation: "fadeUp 0.2s ease",
       }}>
-
         <a
-          href="#menu"
+          href="https://store.chowdeck.com/surulere/restaurants/vip-buka-idi-orodx93ut"
+          target="_blank" rel="noopener noreferrer"
           style={{
-            display: "inline-flex",
-            alignItems: "center",
-            justifyContent: "center",
-            background: "transparent",
-            color: "#F9F6F1",
-            fontFamily: "'DM Sans', sans-serif",
-            fontSize: "0.8rem",
-            fontWeight: 700,
-            letterSpacing: "0.15em",
-            textTransform: "uppercase",
-            padding: "0.75rem 1.75rem",
-            borderRadius: "2px",
-            border: "1px solid rgba(249,246,241,0.25)",
-            textDecoration: "none",
-            transition: "border-color 0.3s ease",
+            display: "block", padding: "0.875rem 1.25rem",
+            fontFamily: "'DM Sans', sans-serif", fontSize: "0.75rem",
+            fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase",
+            color: "#F9F6F1", textDecoration: "none",
+            borderBottom: "1px solid rgba(42,107,60,0.2)", transition: "background 0.2s ease",
           }}
-          onMouseEnter={e => (e.currentTarget.style.borderColor = "#F9F6F1")}
-          onMouseLeave={e => (e.currentTarget.style.borderColor = "rgba(249,246,241,0.25)")}
+          onMouseEnter={e => (e.currentTarget.style.background = "rgba(42,107,60,0.2)")}
+          onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
         >
-          Explore Menu
+          Order on Chowdeck
         </a>
-
-        <div style={{ position: "relative" }}>
-          <button
-            onClick={() => setOrderOpen(!orderOpen)}
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.5rem",
-              background: "#2A6B3C",
-              color: "#F9F6F1",
-              fontFamily: "'DM Sans', sans-serif",
-              fontSize: "0.7rem",
-              fontWeight: 600,
-              letterSpacing: "0.15em",
-              textTransform: "uppercase",
-              padding: "0.75rem 1.75rem",
-              borderRadius: "2px",
-              border: "none",
-              cursor: "pointer",
-            }}
-          >
-            Place an Order
-            <svg
-              width="10" height="10" viewBox="0 0 10 10" fill="none"
-              style={{ transform: orderOpen ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.3s ease" }}
-            >
-              <path d="M1 3L5 7L9 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-            </svg>
-          </button>
-
-          {orderOpen && (
-            <div style={{
-              position: "absolute",
-              bottom: "calc(100% + 8px)",
-              left: "50%",
-              transform: "translateX(-50%)",
-              background: "#181f19",
-              border: "1px solid rgba(42,107,60,0.25)",
-              borderRadius: "2px",
-              minWidth: "220px",
-              overflow: "hidden",
-              zIndex: 100,
-              animation: "fadeUp 0.2s ease",
-            }}>
-              <a
-                href="https://store.chowdeck.com/surulere/restaurants/vip-buka-idi-orodx93ut"
-                target="_blank" rel="noopener noreferrer"
-                style={{
-                  display: "block", padding: "0.875rem 1.25rem",
-                  fontFamily: "'DM Sans', sans-serif", fontSize: "0.75rem",
-                  fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase",
-                  color: "#F9F6F1", textDecoration: "none",
-                  borderBottom: "1px solid rgba(42,107,60,0.2)", transition: "background 0.2s ease",
-                }}
-                onMouseEnter={e => (e.currentTarget.style.background = "rgba(42,107,60,0.2)")}
-                onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
-              >
-                Order on Chowdeck
-              </a>
-              <a
-                href="https://wa.me/2347059653297"
-                target="_blank" rel="noopener noreferrer"
-                style={{
-                  display: "block", padding: "0.875rem 1.25rem",
-                  fontFamily: "'DM Sans', sans-serif", fontSize: "0.75rem",
-                  fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase",
-                  color: "#F9F6F1", textDecoration: "none", transition: "background 0.2s ease",
-                }}
-                onMouseEnter={e => (e.currentTarget.style.background = "rgba(42,107,60,0.2)")}
-                onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
-              >
-                Send us a Message
-              </a>
-            </div>
-          )}
-        </div>
+        <a
+          href="https://wa.me/2347059653297"
+          target="_blank" rel="noopener noreferrer"
+          style={{
+            display: "block", padding: "0.875rem 1.25rem",
+            fontFamily: "'DM Sans', sans-serif", fontSize: "0.75rem",
+            fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase",
+            color: "#F9F6F1", textDecoration: "none", transition: "background 0.2s ease",
+          }}
+          onMouseEnter={e => (e.currentTarget.style.background = "rgba(42,107,60,0.2)")}
+          onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
+        >
+          Send us a Message
+        </a>
       </div>
+    )}
+  </div>
+</div>
 
       <style>{`
         @keyframes fadeUp {
