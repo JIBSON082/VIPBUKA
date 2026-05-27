@@ -1,84 +1,63 @@
+---
+import Layout from '../layouts/Layout.astro';
+import '../styles/global.css';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import OurStory from '../components/OurStory.astro';
+import Menu from '../components/Menu.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Contact from '../components/Contact.astro';
+---
+
+<Layout>
+  <Navbar />
+  <main>
+    <Hero />
+    <OurStory />
+    <Menu />
+    <Testimonials />
+    <Contact />
+  </main>
+</Layout>
+
 <script>
   import Lenis from 'lenis';
   import { gsap } from 'gsap';
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-  // Always register plugins safely
   gsap.registerPlugin(ScrollTrigger);
 
-  // Guard for SSR safety in Astro components
-  if (typeof window !== 'undefined') {
-    
-    // ── Lenis — premium floaty config
-    const lenis = new Lenis({
-      duration: 1.8,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-      wheelMultiplier: 0.8,
-      touchMultiplier: 1.4,
-    });
+  // ── Lenis smooth scroll setup
+  const lenis = new Lenis({
+    duration: 1.0,
+    easing: (t) => 1 - Math.pow(1 - t, 3),
+    smoothWheel: true,
+    touchMultiplier: 1.0,
+  });
 
-    lenis.on('scroll', ScrollTrigger.update);
+  // 1. Tell ScrollTrigger to update every time Lenis scrolls
+  lenis.on('scroll', ScrollTrigger.update);
 
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000);
-    });
+  // 2. Hook Lenis into GSAP ticker so ScrollTrigger stays in perfect sync
+  gsap.ticker.add((time) => {
+    lenis.raf(time * 1000);
+  });
 
-    gsap.ticker.lagSmoothing(0);
+  // 3. Prevent GSAP from trying to auto-correct lag, which causes scroll jumps
+  gsap.ticker.lagSmoothing(0);
 
-    // ── Subtle parallax on section backgrounds (Using yPercent for cleaner rendering)
-    gsap.utils.toArray<HTMLElement>('section').forEach((section) => {
-      gsap.fromTo(
-        section,
-        { backgroundPositionY: '0%' },
-        {
-          backgroundPositionY: '15%',
-          ease: 'none',
-          scrollTrigger: {
-            trigger: section,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: true,
-          },
+  // ── Scroll reveal for .fade-up elements
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
         }
-      );
-    });
+      });
+    },
+    { threshold: 0.15 }
+  );
 
-    // ── Fade up reveal — smoother than IntersectionObserver
-    gsap.utils.toArray<HTMLElement>('.fade-up').forEach((el) => {
-      gsap.fromTo(
-        el,
-        { opacity: 0, y: 40 }, // Slightly reduced y distance for a cleaner drift
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1.4, // Matches the premium, slower pacing
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 85%',
-            toggleActions: 'play none none none',
-          },
-        }
-      );
-    });
-
-    // ── Section heading parallax — text drifts with catching-up lag
-    gsap.utils.toArray<HTMLElement>('h2').forEach((el) => {
-      gsap.fromTo(
-        el,
-        { y: 30 },
-        {
-          y: -30,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: el,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1.2, // Gives it that heavy, deliberate catch-up feel
-          },
-        }
-      );
-    });
-  }
+  document.querySelectorAll('.fade-up').forEach((el) => observer.observe(el));
 </script>
