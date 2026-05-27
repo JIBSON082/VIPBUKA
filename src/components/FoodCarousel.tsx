@@ -128,7 +128,7 @@ export default function FoodCarousel() {
           width: "100%",
           maxWidth: "480px",
           margin: "0.6rem 0 auto",
-          aspectRatio: "1 / 0.8",
+          aspectRatio: "1 / 0.85",
         }}
       >
         {/* Dashed orbit ellipse */}
@@ -296,7 +296,7 @@ export default function FoodCarousel() {
         style={{
           textAlign: "center",
           maxWidth: "480px",
-          margin: "3rem auto 0.75rem",
+          margin: "3.4rem auto 0.75rem",
           opacity: isAnimating ? 0.4 : 1,
           transform: isAnimating ? "translateY(6px)" : "translateY(0)",
           transition: "opacity 0.35s ease, transform 0.35s ease",
