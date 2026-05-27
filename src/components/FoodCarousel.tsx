@@ -127,7 +127,7 @@ export default function FoodCarousel() {
           position: "relative",
           width: "100%",
           maxWidth: "480px",
-          margin: "-3.9rem 0 auto",
+          margin: "-2.8rem 0 auto",
           aspectRatio: "1 / 0.84",
         }}
       >
@@ -393,7 +393,7 @@ export default function FoodCarousel() {
     Explore Menu
   </a>
 
-  <div style={{ position: "relative", width: "100%", maxWidth: "200px" }}>
+  <div style={{ position: "relative", width: "100%", maxWidth: "180px" }}>
     <button
       onClick={() => setOrderOpen(!orderOpen)}
       style={{
