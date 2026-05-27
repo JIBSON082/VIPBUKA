@@ -355,7 +355,7 @@ export default function FoodCarousel() {
         </div>
       </div>
 
-      {/* ── CTAs ── */}
+      
      {/* ── CTAs ── */}
 <div style={{
   display: "flex",
@@ -373,7 +373,7 @@ export default function FoodCarousel() {
       alignItems: "center",
       justifyContent: "center",
       width: "100%",
-      maxWidth: "320px",
+      maxWidth: "250px",
       background: "transparent",
       color: "#F9F6F1",
       fontFamily: "'DM Sans', sans-serif",
@@ -393,7 +393,7 @@ export default function FoodCarousel() {
     Explore Menu
   </a>
 
-  <div style={{ position: "relative", width: "100%", maxWidth: "320px" }}>
+  <div style={{ position: "relative", width: "100%", maxWidth: "280px" }}>
     <button
       onClick={() => setOrderOpen(!orderOpen)}
       style={{
