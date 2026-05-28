@@ -48,11 +48,45 @@ const logoUrl = "https://res.cloudinary.com/dx3k7hbnc/image/upload/v1779611055/P
     <button
       id="hamburger"
       aria-label="Open menu"
-      class="flex flex-col gap-[7px] cursor-pointer group"
+      class="relative flex flex-col justify-center items-center cursor-pointer"
+      style="width: 36px; height: 36px; background: none; border: none; padding: 0;"
     >
-      <span class="block h-[2px] bg-cream transition-all duration-300 group-hover:w-10" style="width: 32px;"></span>
-      <span class="block h-[2px] bg-cream transition-all duration-300 group-hover:w-10" style="width: 20px;"></span>
-      <span class="block h-[2px] bg-cream transition-all duration-300 group-hover:w-10" style="width: 32px;"></span>
+      <span id="ham-top" style="
+        display: block;
+        position: absolute;
+        width: 32px;
+        height: 2px;
+        background: #F9F6F1;
+        border-radius: 2px;
+        transform: translateY(-9px);
+        transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+                    width 0.3s ease,
+                    opacity 0.3s ease;
+      "></span>
+      <span id="ham-mid" style="
+        display: block;
+        position: absolute;
+        width: 20px;
+        height: 2px;
+        background: #F9F6F1;
+        border-radius: 2px;
+        transform: translateY(0px);
+        transition: opacity 0.25s ease,
+                    width 0.3s ease,
+                    transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      "></span>
+      <span id="ham-bot" style="
+        display: block;
+        position: absolute;
+        width: 32px;
+        height: 2px;
+        background: #F9F6F1;
+        border-radius: 2px;
+        transform: translateY(9px);
+        transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+                    width 0.3s ease,
+                    opacity 0.3s ease;
+      "></span>
     </button>
 
   </div>
@@ -117,11 +151,11 @@ const logoUrl = "https://res.cloudinary.com/dx3k7hbnc/image/upload/v1779611055/P
     <!-- Nav Links -->
     <nav class="flex flex-col flex-1 px-7 pt-4">
       {[
-        { label: "Home",       href: "#hero" },
-        { label: "Our Story",  href: "#story" },
-        { label: "Menu",       href: "#menu" },
-        { label: "Reviews",    href: "#testimonials" },
-        { label: "Contact",    href: "#contact" },
+        { label: "Home",      href: "#hero" },
+        { label: "Our Story", href: "#story" },
+        { label: "Menu",      href: "#menu" },
+        { label: "Reviews",   href: "#testimonials" },
+        { label: "Contact",   href: "#contact" },
       ].map((link) => (
         <a
           href={link.href}
@@ -210,12 +244,18 @@ const logoUrl = "https://res.cloudinary.com/dx3k7hbnc/image/upload/v1779611055/P
 </style>
 
 <script>
-  const navbar  = document.getElementById('navbar');
+  const navbar    = document.getElementById('navbar');
   const hamburger = document.getElementById('hamburger');
   const closeBtn  = document.getElementById('close-drawer');
   const drawer    = document.getElementById('nav-drawer');
   const backdrop  = document.getElementById('nav-backdrop');
   const panel     = document.getElementById('nav-panel');
+
+  const hamTop = document.getElementById('ham-top');
+  const hamMid = document.getElementById('ham-mid');
+  const hamBot = document.getElementById('ham-bot');
+
+  let isOpen = false;
 
   window.addEventListener('scroll', () => {
     if (window.scrollY > 60) {
@@ -225,7 +265,29 @@ const logoUrl = "https://res.cloudinary.com/dx3k7hbnc/image/upload/v1779611055/P
     }
   });
 
+  function animateOpen() {
+    if (!hamTop || !hamMid || !hamBot) return;
+    hamTop.style.transform = 'translateY(0px) rotate(45deg)';
+    hamTop.style.width = '32px';
+    hamMid.style.opacity = '0';
+    hamMid.style.transform = 'translateX(-8px)';
+    hamBot.style.transform = 'translateY(0px) rotate(-45deg)';
+    hamBot.style.width = '32px';
+  }
+
+  function animateClose() {
+    if (!hamTop || !hamMid || !hamBot) return;
+    hamTop.style.transform = 'translateY(-9px) rotate(0deg)';
+    hamTop.style.width = '32px';
+    hamMid.style.opacity = '1';
+    hamMid.style.transform = 'translateX(0px)';
+    hamBot.style.transform = 'translateY(9px) rotate(0deg)';
+    hamBot.style.width = '32px';
+  }
+
   function openDrawer() {
+    isOpen = true;
+    animateOpen();
     drawer!.classList.remove('pointer-events-none');
     backdrop!.classList.remove('opacity-0');
     backdrop!.classList.add('opacity-100');
@@ -235,6 +297,8 @@ const logoUrl = "https://res.cloudinary.com/dx3k7hbnc/image/upload/v1779611055/P
   }
 
   function closeDrawer() {
+    isOpen = false;
+    animateClose();
     drawer!.classList.add('pointer-events-none');
     backdrop!.classList.remove('opacity-100');
     backdrop!.classList.add('opacity-0');
@@ -244,7 +308,7 @@ const logoUrl = "https://res.cloudinary.com/dx3k7hbnc/image/upload/v1779611055/P
   }
 
   (window as any).closeDrawer = closeDrawer;
-  hamburger?.addEventListener('click', openDrawer);
+  hamburger?.addEventListener('click', () => isOpen ? closeDrawer() : openDrawer());
   closeBtn?.addEventListener('click', closeDrawer);
   backdrop?.addEventListener('click', closeDrawer);
 </script>
