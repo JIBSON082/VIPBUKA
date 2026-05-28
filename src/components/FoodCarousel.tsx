@@ -306,13 +306,13 @@ export default function FoodCarousel() {
   }}
 >
         {/* Counter */}
-        <div style={{
-          fontSize: "0.6rem",
-          letterSpacing: "0.3em",
-          textTransform: "uppercase",
-          color: "#E8900A",
-          marginBottom: "0.4rem",
-        }}>
+       <div className="carousel-counter" style={{
+  fontSize: "0.6rem",
+  letterSpacing: "0.3em",
+  textTransform: "uppercase",
+  color: "#E8900A",
+  marginBottom: "0.4rem",
+}}>
           {`${String(current + 1).padStart(2, "0")} / ${String(dishes.length).padStart(2, "0")}`}
         </div>
 
@@ -329,12 +329,12 @@ export default function FoodCarousel() {
         </h3>
 
         {/* Divider */}
-        <div style={{
-          width: "28px",
-          height: "2px",
-          background: "#E8900A",
-          margin: "0 auto 0.5rem",
-        }} />
+        <div className="carousel-divider" style={{
+  width: "28px",
+  height: "2px",
+  background: "#E8900A",
+  margin: "0 auto 0.5rem",
+}} />
 
         {/* Description */}
         <p style={{
@@ -497,12 +497,12 @@ export default function FoodCarousel() {
       margin: 0 !important;
       max-width: none !important;
     }
-    .carousel-details > div:first-child {
-      text-align: left !important;
-    }
-    .carousel-details > div:nth-child(3) {
-      margin: 0 0 0.5rem 0 !important;
-    }
+    .carousel-counter {
+  text-align: left !important;
+}
+.carousel-divider {
+  margin: 0 0 0.5rem 0 !important;
+}
     .carousel-ctas {
       justify-content: flex-start !important;
       margin-top: 1.5rem;
