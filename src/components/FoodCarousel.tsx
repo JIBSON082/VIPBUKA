@@ -132,7 +132,7 @@ export default function FoodCarousel() {
     aspectRatio: "1 / 0.72",
   }}
 >
-      >
+      
         {/* Dashed orbit ellipse */}
         <svg
           viewBox="0 0 100 100"
