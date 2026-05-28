@@ -119,17 +119,19 @@ export default function FoodCarousel() {
   const dish = dishes[current];
 
   return (
-    <div style={{ fontFamily: "'DM Sans', sans-serif" }}>
+    <div className="carousel-root" style={{ fontFamily: "'DM Sans', sans-serif" }}>
 
       {/* ── ORBITAL CAROUSEL ── */}
-      <div
-        style={{
-          position: "relative",
-          width: "100%",
-          maxWidth: "480px",
-          margin: "0 auto",
-          aspectRatio: "1 / 0.72",
-        }}
+     <div
+  className="carousel-orbit"
+  style={{
+    position: "relative",
+    width: "100%",
+    maxWidth: "480px",
+    margin: "0 auto",
+    aspectRatio: "1 / 0.72",
+  }}
+>
       >
         {/* Dashed orbit ellipse */}
         <svg
@@ -292,16 +294,17 @@ export default function FoodCarousel() {
       </div>
 
       {/* ── DISH DETAILS ── */}
-      <div
-        style={{
-          textAlign: "center",
-          maxWidth: "480px",
-          margin: "3.4rem auto 0.75rem",
-          opacity: isAnimating ? 0.4 : 1,
-          transform: isAnimating ? "translateY(6px)" : "translateY(0)",
-          transition: "opacity 0.35s ease, transform 0.35s ease",
-        }}
-      >
+    <div
+  className="carousel-details"
+  style={{
+    textAlign: "center",
+    maxWidth: "480px",
+    margin: "3.4rem auto 0.75rem",
+    opacity: isAnimating ? 0.4 : 1,
+    transform: isAnimating ? "translateY(6px)" : "translateY(0)",
+    transition: "opacity 0.35s ease, transform 0.35s ease",
+  }}
+>
         {/* Counter */}
         <div style={{
           fontSize: "0.6rem",
@@ -358,13 +361,13 @@ export default function FoodCarousel() {
       
      {/* ── CTAs ── */}
  {/* ── CTAs ── */}
-      <div style={{
-        display: "flex",
-        gap: "1rem",
-        flexWrap: "wrap",
-        justifyContent: "center",
-        position: "relative",
-      }}>
+      <div className="carousel-ctas" style={{
+  display: "flex",
+  gap: "1rem",
+  flexWrap: "wrap",
+  justifyContent: "center",
+  position: "relative",
+}}>
 
         <a
           href="#menu"
@@ -468,12 +471,44 @@ export default function FoodCarousel() {
         </div>
       </div>
 
-      <style>{`
-        @keyframes fadeUp {
-          from { opacity: 0; transform: translateX(-50%) translateY(8px); }
-          to   { opacity: 1; transform: translateX(-50%) translateY(0); }
-        }
-      `}</style>
+    <style>{`
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateX(-50%) translateY(8px); }
+    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
+
+  @media (min-width: 1024px) {
+    .carousel-root {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .carousel-orbit {
+      flex: 0 0 520px;
+      max-width: 520px;
+      margin: 0 !important;
+    }
+    .carousel-details {
+      flex: 1;
+      text-align: left !important;
+      margin: 0 !important;
+      max-width: none !important;
+    }
+    .carousel-details > div:first-child {
+      text-align: left !important;
+    }
+    .carousel-details > div:nth-child(3) {
+      margin: 0 0 0.5rem 0 !important;
+    }
+    .carousel-ctas {
+      justify-content: flex-start !important;
+      margin-top: 1.5rem;
+    }
+  }
+`}</style>
     </div>
   );
 }
