@@ -32,85 +32,82 @@
           style="height: 560px; background: #0d1410; border: 1px solid rgba(42,107,60,0.2);"
         >
           <video
-            id="story-video"
-            autoplay
-            muted
-            loop
-            playsinline
-            style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"
-          >
-            <source
-              src="https://res.cloudinary.com/dx3k7hbnc/video/upload/VIP_BUKA_STORY_xranyd"
-              type="video/mp4"
-            />
-          </video>
+  id="story-video"
+  muted
+  loop
+  playsinline
+  style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"
+>
+  <source
+    src="https://res.cloudinary.com/dx3k7hbnc/video/upload/VIP_BUKA_STORY_xranyd"
+    type="video/mp4"
+  />
+</video>
 
-          <!-- Bottom scrim so controls always stay readable -->
-          <div style="
-            position: absolute; inset: 0; pointer-events: none;
-            background: linear-gradient(to top, rgba(10,15,11,0.82) 0%, transparent 32%);
-          "></div>
+<!-- Bottom scrim so controls always stay readable -->
+<div style="
+  position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(to top, rgba(10,15,11,0.82) 0%, transparent 32%);
+"></div>
 
-          <!-- Corner marks -->
-          <div class="absolute top-0 left-0 w-12 h-px" style="background: #E8900A; height: 2px;"></div>
-          <div class="absolute bottom-0 right-0 w-12" style="background: #2A6B3C; height: 2px;"></div>
+<!-- Corner marks -->
+<div class="absolute top-0 left-0 w-12 h-px" style="background: #E8900A; height: 2px;"></div>
+<div class="absolute bottom-0 right-0 w-12" style="background: #2A6B3C; height: 2px;"></div>
 
-          <!-- Controls row -->
-          <div style="
-            position: absolute; bottom: 0; left: 0; right: 0;
-            padding: 0 1.1rem 1.1rem;
-            display: flex; justify-content: space-between; align-items: center;
-            z-index: 10;
-          ">
-            <!-- Play / Pause -->
-            <button
-              id="story-play-btn"
-              aria-label="Pause video"
-              style="
-                width: 38px; height: 38px;
-                display: flex; align-items: center; justify-content: center;
-                background: rgba(13,20,16,0.65);
-                border: 1px solid rgba(249,246,241,0.18);
-                border-radius: 2px; cursor: pointer;
-                color: #F9F6F1;
-                backdrop-filter: blur(6px);
-                transition: border-color 0.2s ease, background 0.2s ease;
-              "
-            >
-              <svg id="icon-pause" width="11" height="11" viewBox="0 0 11 11" fill="none">
-                <rect x="1.5" y="1" width="2.8" height="9" rx="0.8" fill="currentColor"/>
-                <rect x="6.7" y="1" width="2.8" height="9" rx="0.8" fill="currentColor"/>
-              </svg>
-              <svg id="icon-play" width="11" height="11" viewBox="0 0 11 11" fill="none" style="display:none;">
-                <path d="M2 1.2L10 5.5L2 9.8V1.2Z" fill="currentColor"/>
-              </svg>
-            </button>
+<!-- Controls row -->
+<div style="
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 0 1.1rem 1.1rem;
+  display: flex; justify-content: space-between; align-items: center;
+  z-index: 10;
+">
+  <!-- Play / Pause -->
+  <button
+    id="story-play-btn"
+    aria-label="Pause video"
+    style="
+      width: 38px; height: 38px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(13,20,16,0.65);
+      border: 1px solid rgba(249,246,241,0.18);
+      border-radius: 2px; cursor: pointer;
+      color: #F9F6F1;
+      backdrop-filter: blur(6px);
+      transition: border-color 0.2s ease, background 0.2s ease;
+    "
+  >
+    <svg id="icon-pause" width="11" height="11" viewBox="0 0 11 11" fill="none" style="display:none;">
+      <rect x="1.5" y="1" width="2.8" height="9" rx="0.8" fill="currentColor"/>
+      <rect x="6.7" y="1" width="2.8" height="9" rx="0.8" fill="currentColor"/>
+    </svg>
+    <svg id="icon-play" width="11" height="11" viewBox="0 0 11 11" fill="none">
+      <path d="M2 1.2L10 5.5L2 9.8V1.2Z" fill="currentColor"/>
+    </svg>
+  </button>
 
-            <!-- Mute / Unmute -->
-            <button
-              id="story-mute-btn"
-              aria-label="Unmute video"
-              style="
-                width: 38px; height: 38px;
-                display: flex; align-items: center; justify-content: center;
-                background: rgba(13,20,16,0.65);
-                border: 1px solid rgba(249,246,241,0.18);
-                border-radius: 2px; cursor: pointer;
-                color: #F9F6F1;
-                backdrop-filter: blur(6px);
-                transition: border-color 0.2s ease, background 0.2s ease;
-              "
-            >
-              <!-- Muted (default — autoplay is muted) -->
-              <svg id="icon-muted" width="15" height="12" viewBox="0 0 15 12" fill="none">
-                <path d="M1 4.2H3.8L7.5 1V11L3.8 7.8H1V4.2Z" fill="currentColor"/>
-                <path d="M11.5 4L9.5 6M9.5 4L11.5 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-              </svg>
-              <!-- Unmuted -->
-              <svg id="icon-unmuted" width="15" height="12" viewBox="0 0 15 12" fill="none" style="display:none;">
-                <path d="M1 4.2H3.8L7.5 1V11L3.8 7.8H1V4.2Z" fill="currentColor"/>
-                <path d="M9.8 3.8C10.9 4.9 10.9 7.1 9.8 8.2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                <path d="M11.8 2C13.8 4 13.8 8 11.8 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Mute / Unmute -->
+  <button
+    id="story-mute-btn"
+    aria-label="Unmute video"
+    style="
+      width: 38px; height: 38px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(13,20,16,0.65);
+      border: 1px solid rgba(249,246,241,0.18);
+      border-radius: 2px; cursor: pointer;
+      color: #F9F6F1;
+      backdrop-filter: blur(6px);
+      transition: border-color 0.2s ease, background 0.2s ease;
+    "
+  >
+    <svg id="icon-muted" width="15" height="12" viewBox="0 0 15 12" fill="none">
+      <path d="M1 4.2H3.8L7.5 1V11L3.8 7.8H1V4.2Z" fill="currentColor"/>
+      <path d="M11.5 4L9.5 6M9.5 4L11.5 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    <svg id="icon-unmuted" width="15" height="12" viewBox="0 0 15 12" fill="none" style="display:none;">
+      <path d="M1 4.2H3.8L7.5 1V11L3.8 7.8H1V4.2Z" fill="currentColor"/>
+      <path d="M9.8 3.8C10.9 4.9 10.9 7.1 9.8 8.2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M11.8 2C13.8 4 13.8 8 11.8 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
               </svg>
             </button>
           </div>
@@ -159,6 +156,28 @@
   const iconPlay    = document.getElementById('icon-play')!;
   const iconMuted   = document.getElementById('icon-muted')!;
   const iconUnmuted = document.getElementById('icon-unmuted')!;
+
+// ── Play when in view, pause when out ──
+const videoWrap = document.getElementById('story-video-wrap');
+
+const visibilityObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        video.play();
+        iconPause.style.display = 'block';
+        iconPlay.style.display = 'none';
+      } else {
+        video.pause();
+        iconPause.style.display = 'none';
+        iconPlay.style.display = 'block';
+      }
+    });
+  },
+  { threshold: 0.3 }
+);
+
+if (videoWrap) visibilityObserver.observe(videoWrap);
 
   playBtn.addEventListener('click', () => {
     if (video.paused) {
