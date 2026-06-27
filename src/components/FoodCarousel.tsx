@@ -206,6 +206,7 @@ export default function FoodCarousel() {
                 <img
                   src={d.image}
                   alt={d.name}
+                  loading={isActive ? "eager" : "lazy"}
                   style={{
                     width: "100%",
                     height: "100%",
