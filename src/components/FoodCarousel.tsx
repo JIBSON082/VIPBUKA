@@ -108,9 +108,17 @@ export default function FoodCarousel() {
   }, [current, goTo]);
 
   useEffect(() => {
-    autoRef.current = setInterval(next, 4500);
-    return () => { if (autoRef.current) clearInterval(autoRef.current); };
-  }, [next]);
+  const id = setInterval(() => {
+    if (!isAnimating) {
+      setCurrent(prev => {
+        const nextIndex = (prev + 1) % dishes.length;
+        goTo(nextIndex, "next");
+        return prev;
+      });
+    }
+  }, 4500);
+  return () => clearInterval(id);
+}, [goTo, isAnimating]);
 
   useEffect(() => {
     return () => { if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current); };
