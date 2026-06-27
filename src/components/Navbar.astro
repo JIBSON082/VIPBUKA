@@ -100,7 +100,7 @@ const logoUrl = "https://res.cloudinary.com/dx3k7hbnc/image/upload/v1779611055/P
   <div
     id="nav-backdrop"
     class="absolute inset-0 opacity-0 transition-opacity duration-500"
-    style="background: rgba(17,20,17,0.75);"
+    style="background: rgba(17,20,17,0.85);"
   ></div>
 
   <!-- Panel -->
@@ -259,12 +259,12 @@ const logoUrl = "https://res.cloudinary.com/dx3k7hbnc/image/upload/v1779611055/P
   let isOpen = false;
 
   window.addEventListener('scroll', () => {
-  if (window.scrollY > 60) {
-    navbar?.classList.add('bg-[#111411]', 'border-b', 'border-[rgba(42,107,60,0.15)]');
-  } else {
-    navbar?.classList.remove('bg-[#111411]', 'border-b', 'border-[rgba(42,107,60,0.15)]');
-  }
-});
+    if (window.scrollY > 60) {
+      navbar?.classList.add('bg-[#111411]', 'border-b', 'border-[rgba(42,107,60,0.15)]');
+    } else {
+      navbar?.classList.remove('bg-[#111411]', 'border-b', 'border-[rgba(42,107,60,0.15)]');
+    }
+  }, { passive: true });
 
   function animateOpen() {
     if (!hamTop || !hamMid || !hamBot) return;
