@@ -130,6 +130,7 @@ export default function FoodCarousel() {
     maxWidth: "480px",
     margin: "0 auto",
     aspectRatio: "1 / 0.72",
+    willChange: "transform",
   }}
 >
       
