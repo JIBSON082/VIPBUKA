@@ -61,6 +61,7 @@ export default function FoodCarousel() {
   const [isAnimating, setIsAnimating] = useState(false);
   const [orbitAngle, setOrbitAngle] = useState(0);
   const [orderOpen, setOrderOpen] = useState(false);
+  const [selectedDish, setSelectedDish] = useState<typeof dishes[number] | null>(null);
   const animFrameRef = useRef<number | null>(null);
   const autoRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const currentAngleRef = useRef(0);
@@ -109,7 +110,7 @@ export default function FoodCarousel() {
 
   useEffect(() => {
   const id = setInterval(() => {
-    if (!isAnimating) {
+    if (!isAnimating && !selectedDish) {
       setCurrent(prev => {
         const nextIndex = (prev + 1) % dishes.length;
         goTo(nextIndex, "next");
@@ -118,11 +119,21 @@ export default function FoodCarousel() {
     }
   }, 4500);
   return () => clearInterval(id);
-}, [goTo, isAnimating]);
+}, [goTo, isAnimating, selectedDish]);
 
   useEffect(() => {
     return () => { if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current); };
   }, []);
+
+  // Close the dish modal on Escape
+  useEffect(() => {
+    if (!selectedDish) return;
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelectedDish(null);
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [selectedDish]);
 
   const dish = dishes[current];
 
@@ -141,7 +152,7 @@ export default function FoodCarousel() {
     willChange: "transform",
   }}
 >
-      
+
         {/* Dashed orbit ellipse */}
         <svg
           viewBox="0 0 100 100"
@@ -173,6 +184,7 @@ export default function FoodCarousel() {
             <button
               key={d.id}
               onClick={() => {
+                setSelectedDish(d);
                 if (!isActive && !isAnimating) {
                   const diff = (i - current + dishes.length) % dishes.length;
                   const dir = diff <= dishes.length / 2 ? "next" : "prev";
@@ -187,7 +199,7 @@ export default function FoodCarousel() {
                   });
                 }
               }}
-              aria-label={`View ${d.name}`}
+              aria-label={`View full details for ${d.name}`}
               style={{
                 position: "absolute",
                 left: `${pos.x}%`,
@@ -197,7 +209,7 @@ export default function FoodCarousel() {
                 background: "none",
                 border: "none",
                 padding: 0,
-                cursor: isActive ? "default" : "pointer",
+                cursor: "pointer",
               }}
             >
               <div style={{
@@ -368,7 +380,7 @@ export default function FoodCarousel() {
         </div>
       </div>
 
-      
+
      {/* ── CTAs ── */}
  {/* ── CTAs ── */}
       <div className="carousel-ctas" style={{
@@ -481,10 +493,146 @@ export default function FoodCarousel() {
         </div>
       </div>
 
+      {/* ── FULL DISH MODAL / LIGHTBOX ── */}
+      {selectedDish && (
+        <div
+          onClick={() => setSelectedDish(null)}
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${selectedDish.name} details`}
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(8,10,8,0.92)",
+            backdropFilter: "blur(10px)",
+            WebkitBackdropFilter: "blur(10px)",
+            zIndex: 1000,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "1.25rem",
+            animation: "dishModalFade 0.25s ease",
+          }}
+        >
+          <div
+            onClick={e => e.stopPropagation()}
+            style={{
+              position: "relative",
+              width: "100%",
+              maxWidth: "440px",
+              maxHeight: "88vh",
+              overflowY: "auto",
+              background: "#11140f",
+              border: "1px solid rgba(232,144,10,0.25)",
+              borderRadius: "6px",
+              animation: "dishModalScale 0.35s cubic-bezier(0.34,1.56,0.64,1)",
+            }}
+          >
+            {/* Close button */}
+            <button
+              onClick={() => setSelectedDish(null)}
+              aria-label="Close"
+              style={{
+                position: "absolute",
+                top: "0.75rem",
+                right: "0.75rem",
+                zIndex: 5,
+                width: "32px",
+                height: "32px",
+                borderRadius: "50%",
+                background: "rgba(8,10,8,0.7)",
+                border: "1px solid rgba(249,246,241,0.2)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                color: "#F9F6F1",
+              }}
+            >
+              <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+                <path d="M1.5 1.5L11.5 11.5M11.5 1.5L1.5 11.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+              </svg>
+            </button>
+
+            {/* Full, uncropped image */}
+            <div style={{
+              width: "100%",
+              maxHeight: "50vh",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              background: "#0a0d09",
+              overflow: "hidden",
+            }}>
+              <img
+                src={selectedDish.image}
+                alt={selectedDish.name}
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  maxHeight: "50vh",
+                  objectFit: "contain",
+                  display: "block",
+                }}
+              />
+            </div>
+
+            {/* Full details */}
+            <div style={{ padding: "1.5rem 1.5rem 1.75rem", textAlign: "center" }}>
+              <h3 style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: "1.6rem",
+                fontWeight: 700,
+                color: "#F9F6F1",
+                lineHeight: 1.2,
+                marginBottom: "0.5rem",
+              }}>
+                {selectedDish.name}
+              </h3>
+
+              <div style={{
+                width: "28px",
+                height: "2px",
+                background: "#E8900A",
+                margin: "0 auto 0.75rem",
+              }} />
+
+              <p style={{
+                fontSize: "0.85rem",
+                color: "rgba(249,246,241,0.6)",
+                lineHeight: 1.7,
+                marginBottom: "0.75rem",
+              }}>
+                {selectedDish.description}
+              </p>
+
+              <div style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: "1.5rem",
+                fontWeight: 700,
+                color: "#2A6B3C",
+              }}>
+                {selectedDish.price}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
     <style>{`
   @keyframes fadeUp {
     from { opacity: 0; transform: translateX(-50%) translateY(8px); }
     to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
+
+  @keyframes dishModalFade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  @keyframes dishModalScale {
+    from { opacity: 0; transform: scale(0.92) translateY(10px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
   }
 
   @media (min-width: 1024px) {
