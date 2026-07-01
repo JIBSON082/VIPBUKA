@@ -67,7 +67,7 @@ export default function FoodCarousel() {
   const currentAngleRef = useRef(0);
 
   const animateToAngle = useCallback((from: number, to: number, onDone: () => void) => {
-    const duration = 620;
+    const duration = 520;
     const start = performance.now();
     function step(now: number) {
       const elapsed = now - start;
