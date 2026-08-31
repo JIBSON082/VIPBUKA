@@ -1,234 +1,137 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* ========================================
-   VIP BUKA — Cinematic Luxury Design System
-   ======================================== */
+/* ---------------------------------------------------
+   Base layer
+--------------------------------------------------- */
+@layer base {
+  * {
+    @apply border-smoke;
+  }
 
-:root {
-  /* Core Colors */
-  --void: #0A0A0A;
-  --charcoal: #141414;
-  --smoke: #1C1C1C;
-  --gold: #C9A87C;
-  --gold-soft: #D4B896;
-  --gold-muted: rgba(201, 168, 124, 0.15);
-  --cream: #F5F0E8;
-  --cream-muted: #C8C0B4;
-  --emerald: #2F5D4A;
-  --emerald-bright: #3D7A5F;
-
-  /* Semantic */
-  --bg: var(--void);
-  --bg-elevated: var(--smoke);
-  --text: var(--cream);
-  --text-muted: var(--cream-muted);
-  --accent: var(--gold);
-  --border: rgba(201, 168, 124, 0.18);
-
-  /* Motion */
-  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
-  --duration-fast: 200ms;
-  --duration-normal: 400ms;
-  --duration-slow: 700ms;
-}
-
-/* ========== Base ========== */
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-body {
-  font-family: 'DM Sans', system-ui, sans-serif;
-  background-color: var(--bg);
-  color: var(--text);
-  line-height: 1.65;
-  overflow-x: hidden;
-  min-height: 100vh;
-}
-
-::selection {
-  background: var(--gold);
-  color: var(--void);
-}
-
-/* ========== Typography Utilities ========== */
-.font-playfair {
-  font-family: 'Playfair Display', Georgia, serif;
-}
-
-.font-dm {
-  font-family: 'DM Sans', system-ui, sans-serif;
-}
-
-/* ========== Scrollbar ========== */
-::-webkit-scrollbar {
-  width: 5px;
-}
-::-webkit-scrollbar-track {
-  background: var(--void);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--gold);
-  border-radius: 999px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--gold-soft);
-}
-
-/* ========== Section Label ========== */
-.section-label {
-  display: inline-block;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 1.25rem;
-}
-
-/* ========== Gold Accent Line ========== */
-.gold-line {
-  width: 48px;
-  height: 1.5px;
-  background: var(--gold);
-  margin: 1.5rem 0;
-}
-
-/* ========== Buttons ========== */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  padding: 0.95rem 2.1rem;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all var(--duration-normal) var(--ease-out-expo);
-  text-decoration: none;
-  border: 1px solid transparent;
-  white-space: nowrap;
-}
-
-.btn-primary {
-  background: var(--gold);
-  color: var(--void);
-  border-color: var(--gold);
-}
-
-.btn-primary:hover {
-  background: var(--gold-soft);
-  border-color: var(--gold-soft);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(201, 168, 124, 0.25);
-}
-
-.btn-outline {
-  background: transparent;
-  color: var(--cream);
-  border-color: rgba(245, 240, 232, 0.25);
-}
-
-.btn-outline:hover {
-  border-color: var(--cream);
-  background: rgba(245, 240, 232, 0.04);
-  transform: translateY(-2px);
-}
-
-.btn-ghost {
-  background: transparent;
-  color: var(--cream);
-  border-color: transparent;
-  padding-left: 0;
-  padding-right: 0;
-}
-
-.btn-ghost:hover {
-  color: var(--gold);
-}
-
-/* ========== Cards ========== */
-.card {
-  background: var(--bg-elevated);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  overflow: hidden;
-  transition: transform var(--duration-normal) var(--ease-out-expo),
-              box-shadow var(--duration-normal) var(--ease-out-expo),
-              border-color var(--duration-normal) var(--ease-out-expo);
-}
-
-.card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(201, 168, 124, 0.35);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
-}
-
-/* ========== Fade-up Animation ========== */
-.fade-up {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity var(--duration-slow) var(--ease-out-expo),
-              transform var(--duration-slow) var(--ease-out-expo);
-}
-
-.fade-up.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Stagger helpers */
-.stagger-1 { transition-delay: 0ms; }
-.stagger-2 { transition-delay: 80ms; }
-.stagger-3 { transition-delay: 160ms; }
-.stagger-4 { transition-delay: 240ms; }
-.stagger-5 { transition-delay: 320ms; }
-
-/* ========== Reduced Motion ========== */
-@media (prefers-reduced-motion: reduce) {
   html {
-    scroll-behavior: auto;
+    scroll-behavior: smooth;
   }
-  .fade-up,
-  .btn,
+
+  body {
+    @apply bg-void text-cream font-dm antialiased;
+  }
+
+  ::selection {
+    background-color: theme('colors.gold.DEFAULT');
+    color: theme('colors.void');
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: theme('colors.void');
+  }
+  ::-webkit-scrollbar-thumb {
+    background: theme('colors.gold.muted');
+    border-radius: 999px;
+    border: 2px solid theme('colors.void');
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-playfair;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ---------------------------------------------------
+   Components
+--------------------------------------------------- */
+@layer components {
+
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center px-8 py-3.5 font-dm text-sm tracking-wide
+           transition-all duration-300 ease-out-expo;
+  }
+
+  .btn-primary {
+    @apply btn bg-gold text-void hover:-translate-y-0.5 hover:shadow-gold-glow;
+  }
+
+  .btn-outline {
+    @apply btn border border-cream/30 text-cream hover:border-gold hover:text-gold;
+  }
+
+  .btn-ghost {
+    @apply btn text-cream-muted hover:text-gold;
+  }
+
+  /* Section label — small, quiet, precise (used above titles only where it adds real navigation value) */
+  .section-label {
+    @apply text-xs tracking-label text-gold-muted font-dm;
+  }
+
+  /* Gold accent divider */
+  .gold-rule {
+    @apply w-12 h-px bg-gold;
+  }
+
+  /* Card system */
   .card {
-    transition: none !important;
+    @apply bg-charcoal border border-cream/10 transition-all duration-500 ease-out-expo;
+  }
+
+  .card-hover {
+    @apply hover:-translate-y-1 hover:border-gold/40 hover:shadow-elevated;
+  }
+
+  /* Subtle cinematic grain — restricted to hero / full-bleed brand moments only */
+  .grain {
+    position: relative;
+  }
+  .grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.04;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 }
 
-/* ========== Utilities ========== */
-.text-balance {
-  text-wrap: balance;
-}
+/* ---------------------------------------------------
+   Utilities — motion system
+--------------------------------------------------- */
+@layer utilities {
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s theme('transitionTimingFunction.out-expo'),
+                transform 0.8s theme('transitionTimingFunction.out-expo');
+  }
 
-.grain {
-  position: relative;
-}
-.grain::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 1;
+  .fade-up.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Stagger helper — pair with is-visible on a parent, apply nth-child delays via inline style or JS */
+  .fade-up-stagger > * {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s theme('transitionTimingFunction.out-expo'),
+                transform 0.8s theme('transitionTimingFunction.out-expo');
+  }
+
+  .fade-up-stagger.is-visible > * {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
