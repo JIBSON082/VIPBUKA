@@ -636,36 +636,38 @@ export default function FoodCarousel() {
   }
 
   @media (min-width: 1024px) {
-    .carousel-root {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: 5rem;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-    .carousel-orbit {
-      flex: 0 0 520px;
-      max-width: 520px;
-      margin: 0 !important;
-    }
-    .carousel-details {
-      flex: 1;
-      text-align: left !important;
-      margin: 0 !important;
-      max-width: none !important;
-    }
-    .carousel-counter {
-  text-align: left !important;
-}
-.carousel-divider {
-  margin: 0 0 0.5rem 0 !important;
-}
-    .carousel-ctas {
-      justify-content: flex-start !important;
-      margin-top: 1.5rem;
-    }
+  .carousel-root {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 4rem;
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
   }
+  .carousel-orbit {
+    flex: 0 0 460px;
+    max-width: 460px;
+    margin: 0 !important;
+  }
+  .carousel-details {
+    flex: 1;
+    max-width: 420px;
+    text-align: left !important;
+    margin: 0 !important;
+  }
+  .carousel-counter {
+    text-align: left !important;
+  }
+  .carousel-divider {
+    margin: 0 0 0.5rem 0 !important;
+  }
+  .carousel-ctas {
+    justify-content: flex-start !important;
+    margin-top: 1.5rem;
+  }
+}
 `}</style>
     </div>
   );
