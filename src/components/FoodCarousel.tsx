@@ -635,24 +635,25 @@ export default function FoodCarousel() {
     to   { opacity: 1; transform: scale(1) translateY(0); }
   }
 
-  @media (min-width: 1024px) {
+    @media (min-width: 1024px) {
   .carousel-root {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 460px 1fr;
     align-items: center;
-    justify-content: center;
     gap: 4rem;
     max-width: 1100px;
     width: 100%;
     margin: 0 auto;
   }
   .carousel-orbit {
-    flex: 0 0 460px;
+    grid-column: 1;
+    grid-row: 1 / span 2;
     max-width: 460px;
     margin: 0 !important;
   }
   .carousel-details {
-    flex: 1;
+    grid-column: 2;
+    grid-row: 1;
     max-width: 420px;
     text-align: left !important;
     margin: 0 !important;
@@ -664,6 +665,8 @@ export default function FoodCarousel() {
     margin: 0 0 0.5rem 0 !important;
   }
   .carousel-ctas {
+    grid-column: 2;
+    grid-row: 2;
     justify-content: flex-start !important;
     margin-top: 1.5rem;
   }
